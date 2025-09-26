@@ -1,0 +1,130 @@
+@import 'tailwindcss' important;
+
+@theme {
+  /* Base Colors */
+  --color-black: #000000;
+  --color-white: #ffffff;
+
+  /* Primary Colors */
+  --color-primary: #2344c3;
+  --color-primary-light: #2970ff;
+  --color-primary-lighter: #155eef;
+
+  /* Secondary Colors */
+  --color-secondary: #757575;
+  --color-tertiary: #b3b3b3;
+
+  /* Text Colors */
+  --color-text-primary: #1e1e1e;
+  --color-text-secondary: #293056;
+  --color-text-tertiary: #344054;
+  --color-text-muted: #475467;
+  --color-text-light: #667085;
+  --color-text-lighter: #7d89b0;
+  --color-text-lightest: #5d6b98;
+
+  /* Semantic Colors */
+  --color-error: #c00f0c;
+  --color-warning: #f59e0b;
+  --color-warn: #e38c00;
+  --color-success: #02542d;
+  --color-success-light: #10b981;
+  --color-success-lighter: #17b26a;
+  --color-success-lightest: #079455;
+  --color-info: #0ea5e9;
+
+  /* Status Colors */
+  --color-status-blue: #3b82f6;
+  --color-status-purple: #8b5cf6;
+  --color-status-orange: #f97316;
+  --color-status-amber: #f79009;
+  --color-status-violet: #6941c6;
+
+  /* Border Colors */
+  --color-border: #d9d9d9;
+  --color-border-light: #e4e7ec;
+  --color-border-lighter: #d0d5dd;
+
+  /* Background Colors */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-tertiary: #f5f8ff;
+  --color-bg-muted: #f3f4f6;
+  --color-bg-active: #eff4ff;
+
+  /* Background Variants */
+  --color-bg-success: #dcfae6;
+  --color-bg-warning: #fef0c7;
+  --color-bg-purple: #f4ebff;
+
+  /* Icon Colors */
+  --color-icon-muted: #717bbc;
+
+  /* Progress Colors */
+  --color-progress-trail: #e4e7ec;
+
+  /* Stroke Colors */
+  --color-stroke-light: #e7efff;
+
+  /* Gray Scale */
+  --color-gray-1: #d9d9d9;
+  --color-gray-2: #5a5a5a;
+  --color-gray-3: #2c2c2c;
+  --color-gray-4: #f5f5f5;
+  --color-gray-5: #f0f0f0;
+  --color-gray-6: #757575;
+  --color-gray-7: #475467;
+  --color-gray-8: #eaecf0;
+  --color-gray-9: #344054;
+  --color-gray-10: #b3b3b3;
+
+  /* Blue Scale */
+  --color-blue-1: #edf0fe;
+  --color-blue-2: #4c6ef6;
+  --color-blue-3: #2344c3;
+
+  /* Cyan Scale */
+  --color-cyan-2: #edf0fe;
+
+  /* Green Scale */
+  --color-green-1: #ebffee;
+  --color-green-2: #02542d;
+
+  /* Orange Scale */
+  --color-orange-1: #fff1c2;
+  --color-orange-2: #bf6a02;
+
+  /* Violet Scale */
+  --color-violet-1: #fbe3ff;
+  --color-violet-2: #ab47bc;
+
+  /* Red Scale */
+  --color-red-1: #c00f0c;
+  --color-red-tertiary: #fee9e7;
+
+  /* Yellow Scale */
+  --color-yellow-1: #fff5cf;
+  --color-yellow-2: #ac6a00;
+
+  /* Black Scale */
+  --color-black-1: #374151;
+  --color-black-2: #0c2042;
+
+  /* Neutral Colors */
+  --color-neutral-secondary: #cdcdcd;
+  --color-neutral-tertiary: #e3e3e3;
+  /* Fonts */
+  --font-serif: 'Urbanist', serif;
+}
+
+@layer components {
+  .atlas-btn-icon {
+    @apply flex;
+  }
+
+  .atlas-dashboard {
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.07);
+    @apply bg-white;
+    @apply rounded-2xl;
+  }
+}

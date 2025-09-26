@@ -1,0 +1,39 @@
+{
+  "name": "@ocr-platform/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "yarn workspace @ocr-platform/web-platform dev",
+    "build": "yarn build:shared && yarn build:web",
+    "build:web": "yarn workspace @ocr-platform/web-platform build",
+    "build:shared": "yarn workspace @ocr-platform/shared build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "yarn workspace @ocr-platform/shared type-check && yarn workspace @ocr-platform/web-platform type-check",
+    "test": "yarn workspace @ocr-platform/web-platform test",
+    "clean": "yarn workspace @ocr-platform/shared clean && rm -rf node_modules",
+    "install:all": "yarn install",
+    "mobile": "yarn workspace @ocr-platform/mobile-platform start"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "eslint": "^9.15.0",
+    "eslint-plugin-perfectionist": "^4.0.0",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "globals": "^15.12.0",
+    "prettier": "^3.3.3",
+    "typescript": "5.7.3",
+    "typescript-eslint": "^8.15.0"
+  },
+  "engines": {
+    "node": ">=22.14.0",
+    "yarn": ">=1.22.0"
+  }
+}
