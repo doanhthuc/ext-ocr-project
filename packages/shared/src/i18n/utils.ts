@@ -1,4 +1,5 @@
 import type { SupportedLanguage, TranslationKey } from './types';
+
 import { i18nConfig } from './config';
 
 /**
@@ -23,7 +24,10 @@ export function getTranslation(
   params?: Record<string, string | number>
 ): string {
   const translations = i18nConfig.resources[language];
-  const template = translations?.[key] || i18nConfig.resources[i18nConfig.fallbackLanguage][key] || key;
+  const template =
+    translations?.[key] ||
+    i18nConfig.resources[i18nConfig.fallbackLanguage][key] ||
+    key;
 
   return params ? interpolate(template, params) : template;
 }
@@ -35,7 +39,10 @@ export function detectLanguage(): SupportedLanguage {
   // Check localStorage first
   if (typeof window !== 'undefined') {
     const stored = localStorage.getItem('ocr-platform-language');
-    if (stored && i18nConfig.supportedLanguages.includes(stored as SupportedLanguage)) {
+    if (
+      stored &&
+      i18nConfig.supportedLanguages.includes(stored as SupportedLanguage)
+    ) {
       return stored as SupportedLanguage;
     }
   }
@@ -71,9 +78,6 @@ export function formatDateWithLocale(
   const localeMap: Record<SupportedLanguage, string> = {
     en: 'en-US',
     vi: 'vi-VN',
-    ja: 'ja-JP',
-    ko: 'ko-KR',
-    zh: 'zh-CN',
   };
 
   return new Intl.DateTimeFormat(localeMap[language], options).format(date);
@@ -90,9 +94,6 @@ export function formatNumberWithLocale(
   const localeMap: Record<SupportedLanguage, string> = {
     en: 'en-US',
     vi: 'vi-VN',
-    ja: 'ja-JP',
-    ko: 'ko-KR',
-    zh: 'zh-CN',
   };
 
   return new Intl.NumberFormat(localeMap[language], options).format(number);
