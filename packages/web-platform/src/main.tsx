@@ -16,6 +16,14 @@ import { useNotification } from '~shared/hooks/useNotification';
 // Import shared global CSS
 import '@ocr-platform/shared/src/styles/global.css';
 
+// Initialize i18n
+import { detectLanguage, isRTL } from '@ocr-platform/shared/i18n';
+
+// Set initial language and direction
+const initialLanguage = detectLanguage();
+document.documentElement.lang = initialLanguage;
+document.documentElement.dir = isRTL(initialLanguage) ? 'rtl' : 'ltr';
+
 dayjs.extend(utc);
 
 const router = createRouter({

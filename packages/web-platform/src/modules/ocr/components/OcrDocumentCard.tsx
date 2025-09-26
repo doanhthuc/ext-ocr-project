@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import { IconCircleMore, IconFileSearch02 } from '~/assets/icons';
 import { ProgressBar } from '~/shared/components/progress/ProgressBar';
 import { cn } from '~/shared/utils/cn.util';
+import { useTranslation } from '~shared/hooks/useTranslation';
 
 export type OcrDocumentCardProps = {
   thumbnail?: string;
@@ -27,6 +28,7 @@ export function OcrDocumentCard({
   onMoreClick,
   className,
 }: OcrDocumentCardProps) {
+  const { t } = useTranslation();
   const isExcel = convertTo === 'Excel';
   const colorClass = isExcel ? 'text-success-lighter' : 'text-primary-light';
 
@@ -54,10 +56,10 @@ export function OcrDocumentCard({
         <div className="flex flex-col gap-1">
           <div className="flex flex-col gap-1">
             <span className="text-xs text-text-lighter">
-              Last modified: {lastModified}
+              {t('ocr.lastModified')}: {lastModified}
             </span>
             <span className={cn('text-xs', colorClass)}>
-              Convert to {convertTo}
+              {t('ocr.convertTo')} {convertTo}
             </span>
           </div>
 
@@ -73,7 +75,7 @@ export function OcrDocumentCard({
               <div className="flex items-center gap-1">
                 <IconFileSearch02 className="text-icon-muted" />
                 <span className="text-sm font-normal text-text-lighter">
-                  {sheetCount} Sheet
+                  {sheetCount} {t('ocr.sheet')}
                 </span>
               </div>
             </div>

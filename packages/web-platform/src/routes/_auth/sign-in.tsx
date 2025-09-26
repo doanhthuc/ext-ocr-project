@@ -6,6 +6,7 @@ import { useAuth } from '~/auth/hooks/useAuth';
 import { IconGoogle } from '~icons';
 import { DashboardIllustration } from '~shared/components/DashboardIllustration';
 import { LogoFilled } from '~shared/components/logo/LogoFilled';
+import { useTranslation } from '~shared/hooks/useTranslation';
 
 const { Title } = Typography;
 
@@ -29,6 +30,7 @@ export const Route = createFileRoute('/_auth/sign-in')({
 
 function SignInPage() {
   const { redirectWithProvider, signIn } = useAuth();
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const navigate = useNavigate();
@@ -63,16 +65,16 @@ function SignInPage() {
         <LogoFilled className="size-25 mb-6" />
 
         <Title level={1} className="text-center mb-6">
-          Sign in to get started
+          {t('auth.signInToGetStarted')}
         </Title>
 
         <Card className="w-full mb-6">
           <Title level={4} className="text-center mb-4">
-            Demo Login
+            {t('auth.demoLogin')}
           </Title>
 
           <Alert
-            message="Available Test Accounts"
+            message={t('auth.availableTestAccounts')}
             description={
               <div className="mt-2 space-y-1">
                 {TEST_CREDENTIALS.map((cred, index) => (
@@ -94,24 +96,24 @@ function SignInPage() {
             size="large"
           >
             <Form.Item
-              label="Email"
+              label={t('auth.email')}
               name="email"
               rules={[
-                { required: true, message: 'Please input your email!' },
-                { type: 'email', message: 'Please enter a valid email!' },
+                { required: true, message: t('auth.pleaseInputEmail') },
+                { type: 'email', message: t('auth.pleaseEnterValidEmail') },
               ]}
             >
-              <Input placeholder="Enter your email" />
+              <Input placeholder={t('auth.enterYourEmail')} />
             </Form.Item>
 
             <Form.Item
-              label="Password"
+              label={t('auth.password')}
               name="password"
               rules={[
-                { required: true, message: 'Please input your password!' },
+                { required: true, message: t('auth.pleaseInputPassword') },
               ]}
             >
-              <Input.Password placeholder="Enter your password" />
+              <Input.Password placeholder={t('auth.enterYourPassword')} />
             </Form.Item>
 
             <Form.Item className="mb-0">
@@ -121,13 +123,13 @@ function SignInPage() {
                 loading={loading}
                 className="w-full"
               >
-                Sign In
+                {t('auth.signIn')}
               </Button>
             </Form.Item>
           </Form>
         </Card>
 
-        <Divider>OR</Divider>
+        <Divider>{t('common.or')}</Divider>
 
         <Button
           className="w-full gap-3.5"
@@ -135,7 +137,7 @@ function SignInPage() {
           onClick={() => redirectWithProvider('google')}
         >
           <IconGoogle className="size-5" />
-          Continue with Google
+          {t('auth.continueWithGoogle')}
         </Button>
       </div>
 

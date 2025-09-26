@@ -5,8 +5,10 @@ import { IconPicture, IconFolder, IconSquareSticker } from '~/assets/icons';
 import { OcrDocumentCard } from '~/ocr/components/OcrDocumentCard';
 import { OcrImportCard } from '~/ocr/components/OcrImportCard';
 import { OcrProgressCard } from '~/ocr/components/OcrProgressCard';
+import { useTranslation } from '~shared/hooks/useTranslation';
 
 export function OcrPage() {
+  const { t } = useTranslation();
   // Uncomment when needed for tab functionality
   // const [activeTab, setActiveTab] = useState<"ocr" | "translate" | "dashboard">("ocr");
 
@@ -77,7 +79,7 @@ export function OcrPage() {
     <div className="p-6 bg-bg-tertiary min-h-full">
       {/* Smart OCR Tools */}
       <h2 className="text-xl font-semibold text-text-secondary mb-5">
-        Smart OCR Tools
+        {t('ocr.smartTools')}
       </h2>
 
       {/* Import Cards */}
@@ -88,7 +90,7 @@ export function OcrPage() {
               <IconPicture className="w-7 h-7 text-success-lightest" />
             </div>
           }
-          title="Import Picture"
+          title={t('ocr.importPicture')}
           onClick={handleImportPicture}
         />
 
@@ -98,7 +100,7 @@ export function OcrPage() {
               <IconFolder className="w-7 h-7 text-status-amber" />
             </div>
           }
-          title="Import File"
+          title={t('ocr.importFile')}
           onClick={handleImportFile}
         />
 
@@ -108,7 +110,7 @@ export function OcrPage() {
               <IconSquareSticker className="w-7 h-7 text-status-violet" />
             </div>
           }
-          title="Use Template"
+          title={t('ocr.useTemplate')}
           onClick={handleUseTemplate}
         />
       </div>
@@ -117,14 +119,14 @@ export function OcrPage() {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-base font-medium text-text-secondary">
-            OCR Progress
+            {t('ocr.ocrProgress')}
           </h3>
           <Button
             type="link"
             className="text-xs font-medium text-primary-lighter p-0"
             onClick={handleViewMoreProgress}
           >
-            View More
+{t('ocr.viewMore')}
           </Button>
         </div>
 
@@ -157,14 +159,14 @@ export function OcrPage() {
       <div>
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-base font-medium text-text-secondary">
-            Recent Document
+            {t('ocr.recentDocuments')}
           </h3>
           <Button
             type="link"
             className="text-xs font-medium text-primary-lighter p-0"
             onClick={handleViewMoreRecent}
           >
-            View More
+{t('ocr.viewMore')}
           </Button>
         </div>
 

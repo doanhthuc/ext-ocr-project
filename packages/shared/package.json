@@ -34,6 +34,14 @@
     "./constants/*": {
       "types": "./dist/constants/*.d.ts",
       "import": "./dist/constants/*.js"
+    },
+    "./i18n": {
+      "types": "./dist/i18n/index.d.ts",
+      "import": "./dist/i18n/index.js"
+    },
+    "./i18n/*": {
+      "types": "./dist/i18n/*.d.ts",
+      "import": "./dist/i18n/*.js"
     }
   },
   "scripts": {

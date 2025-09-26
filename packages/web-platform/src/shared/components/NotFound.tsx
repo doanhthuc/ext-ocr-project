@@ -4,9 +4,11 @@ import { Button } from 'antd';
 
 import IMAGE_NOT_FOUND from '~/assets/images/404.png';
 import { DashboardIllustration } from '~shared/components/DashboardIllustration';
+import { useTranslation } from '~shared/hooks/useTranslation';
 
 export function NotFound() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="grid grid-cols-2 min-h-screen">
@@ -17,14 +19,14 @@ export function NotFound() {
           onClick={() => navigate({ to: '/' })}
         >
           <CaretLeft size={20} />
-          Back
+          {t('common.back')}
         </Button>
 
-        <h1 className="text-5xl font-semibold mb-6">Page not found</h1>
+        <h1 className="text-5xl font-semibold mb-6">{t('notFound.title')}</h1>
         <img width={200} height={150} src={IMAGE_NOT_FOUND} className="mb-6" />
-        <div className="text-xl">Requested action could not be completed.</div>
+        <div className="text-xl">{t('notFound.subtitle')}</div>
         <div className="text-xl">
-          Please contact your organization&apos;s administrator for assistance.
+          {t('notFound.description')}
         </div>
       </div>
 

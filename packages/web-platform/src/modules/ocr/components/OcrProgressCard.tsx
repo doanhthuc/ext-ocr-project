@@ -1,6 +1,7 @@
 import { Progress } from 'antd';
 
 import { cn } from '~/shared/utils/cn.util';
+import { useTranslation } from '~shared/hooks/useTranslation';
 
 export type OcrProgressCardProps = {
   thumbnail?: string;
@@ -19,6 +20,7 @@ export function OcrProgressCard({
   progress,
   className,
 }: OcrProgressCardProps) {
+  const { t } = useTranslation();
   const isExcel = convertTo === 'Excel';
   const colorClass = isExcel ? 'text-success-lighter' : 'text-primary-light';
 
@@ -46,10 +48,10 @@ export function OcrProgressCard({
         <div className="flex flex-col gap-1">
           <div className="flex flex-col gap-1">
             <span className="text-xs text-text-lighter">
-              Last modified: {lastModified}
+              {t('ocr.lastModified')}: {lastModified}
             </span>
             <span className={cn('text-xs', colorClass)}>
-              Convert to {convertTo}
+              {t('ocr.convertTo')} {convertTo}
             </span>
           </div>
 

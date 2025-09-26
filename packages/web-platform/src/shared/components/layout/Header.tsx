@@ -3,10 +3,13 @@ import { Avatar, Badge, Button, Divider, Layout, Menu, Popover } from 'antd';
 
 import { IconNotification, IconScan } from '~/assets/icons';
 import { useAuth } from '~/auth/hooks/useAuth';
+import { LanguageSelector } from '~shared/components/LanguageSelector';
+import { useTranslation } from '~shared/hooks/useTranslation';
 import { cn } from '~shared/utils/cn.util';
 
 export function Header() {
   const { user, signOut } = useAuth();
+  const { t } = useTranslation();
 
   return (
     <Layout.Header className="bg-[#2970FF] px-6 py-0 flex items-center justify-between h-12 w-full z-10">
@@ -16,6 +19,8 @@ export function Header() {
       </div>
 
       <div className="flex items-center gap-4">
+        <LanguageSelector />
+
         <Badge count={4} size="small">
           <Button
             type="text"
@@ -45,7 +50,7 @@ export function Header() {
                   {
                     key: 'log-out',
                     icon: <SignOut size={18} />,
-                    label: 'Logout',
+                    label: t('auth.signOut'),
                     onClick: signOut,
                   },
                 ]}
