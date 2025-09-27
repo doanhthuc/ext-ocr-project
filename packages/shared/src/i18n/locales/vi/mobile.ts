@@ -1,5 +1,5 @@
 ﻿export const mobile = {
-  'mobile.appName.full': 'React Native MobilePlatform',
+  'mobile.appName.full': 'React Native VietminhOCR',
   'mobile.appName.initials': 'RNB',
   'mobile.common.error': 'Rất tiếc! Đã xảy ra lỗi.',
   'mobile.screen.example.helloUser': 'Xin chào, tôi tên là {{name}}',

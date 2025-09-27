@@ -105,10 +105,6 @@ temp/
 .expo/
 .expo-shared/
 
-# React Native
-android/
-ios/
-
 #env
 .env
 .env*.local
