@@ -1,0 +1,22 @@
+﻿{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowJs": false,
+    "baseUrl": ".",
+    "jsx": "react-native",
+    "noUnusedLocals": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": ["react-native", "jest", "node", "nativewind/types"]
+  },
+  "include": [
+    "src/**/*",
+    "index.js",
+    "jest.config.js",
+    "jest.setup.js",
+    "metro.config.js",
+    "babel.config.js"
+  ],
+  "exclude": ["node_modules", "android", "ios"]
+}

@@ -1,9 +1,10 @@
-import { auth } from './auth';
+﻿import { auth } from './auth';
 import { common } from './common';
 import { credits } from './credits';
 import { dashboard } from './dashboard';
 import { errorPages } from './errorPages';
 import { errors } from './errors';
+import { mobile } from './mobile';
 import { navigation } from './navigation';
 import { ocr } from './ocr';
 import { status } from './status';
@@ -22,4 +23,5 @@ export const vi = {
   ...status,
   ...credits,
   ...errorPages,
+  ...mobile,
 } as const;
