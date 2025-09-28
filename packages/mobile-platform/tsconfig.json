@@ -1,0 +1,33 @@
+﻿{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "types": [
+      "nativewind/types",
+      "jest"
+    ],
+    "paths": {
+      "~/*": [
+        "src/*"
+      ],
+      "@mobile/*": [
+        "src/*"
+      ],
+      "@shared/*": [
+        "../shared/src/*"
+      ]
+    }
+  },
+  "include": [
+    "app.config.ts",
+    "app",
+    "src",
+    "global.d.ts",
+    "jest.setup.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
