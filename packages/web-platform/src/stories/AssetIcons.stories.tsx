@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { App, Tooltip } from 'antd';
 
 import * as icons from '~icons';

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { TranslatedText } from './TranslatedText';
 
@@ -41,7 +41,7 @@ export const WithParams: Story = {
 
 export const WithFallback: Story = {
   args: {
-    i18nKey: 'nonexistent.key' as any,
+    i18nKey: 'nonexistent.key' as never,
     fallback: 'Fallback text',
   },
 };
