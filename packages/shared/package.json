@@ -42,6 +42,14 @@
     "./i18n/*": {
       "types": "./dist/i18n/*.d.ts",
       "import": "./dist/i18n/*.js"
+    },
+    "./styles": {
+      "types": "./dist/styles/index.d.ts",
+      "import": "./dist/styles/index.js"
+    },
+    "./styles/*": {
+      "types": "./dist/styles/*.d.ts",
+      "import": "./dist/styles/*.js"
     }
   },
   "scripts": {
@@ -57,6 +65,7 @@
   "dependencies": {
     "dayjs": "^1.11.13",
     "lodash-es": "^4.17.21",
+    "tailwindcss": "^4.0.7",
     "zod": "^4.1.11"
   },
   "devDependencies": {

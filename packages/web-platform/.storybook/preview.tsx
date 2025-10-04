@@ -1,12 +1,12 @@
 /* eslint-disable no-restricted-imports */
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-vite';
 
-import { themes } from '@storybook/theming';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { App, ConfigProvider } from 'antd';
 import React from 'react';
+import { themes } from 'storybook/theming';
 
-import '@ocr-platform/shared/src/styles/global.css';
+import '../src/styles/index.css';
 
 import { antConfig, PREFIX_CLASS } from '../src/configs/ant.config.ts';
 import { tanstackClient } from '../src/configs/tanstack-query.config.ts';

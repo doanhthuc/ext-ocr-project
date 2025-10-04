@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 // Import the template image
 import templateImage from '~/assets/images/template-bill-restaurant-21c4bc.png';

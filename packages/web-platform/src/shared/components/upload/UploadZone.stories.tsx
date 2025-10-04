@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { UploadFile } from 'antd';
 import { UploadChangeParam } from 'antd/es/upload';
