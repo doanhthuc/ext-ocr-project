@@ -1,0 +1,6 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M25 0H7C5.34315 0 4 1.34315 4 3V37C4 38.6569 5.34315 40 7 40H33C34.6569 40 36 38.6569 36 37V11L25 0Z" fill="#F3F4F6"/>
+  <path d="M25 0V8C25 9.65685 26.3431 11 28 11H36L25 0Z" fill="#D1D5DB"/>
+  <rect x="4" y="18" width="33" height="10" rx="2" fill="#155EEF"/>
+  <text x="20.5" y="24" dominant-baseline="middle" text-anchor="middle" font-family="Inter" font-weight="700" font-size="10" fill="white">DOCX</text>
+</svg>

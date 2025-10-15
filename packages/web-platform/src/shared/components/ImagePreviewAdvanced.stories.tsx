@@ -9,7 +9,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'An advanced image preview component with zoom, pan, pinch, and fullscreen functionality in a 16:9 aspect ratio.',
+        component:
+          'An advanced image preview component with zoom, pan, pinch, and fullscreen functionality in a 16:9 aspect ratio.',
       },
     },
   },
@@ -67,11 +68,16 @@ type Story = StoryObj<typeof meta>;
 
 // Sample images for demonstration
 const sampleImages = {
-  landscape: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=675&fit=crop',
-  document: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&h=675&fit=crop',
-  portrait: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&h=675&fit=crop',
-  technical: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&h=675&fit=crop',
-  diagram: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop',
+  landscape:
+    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=675&fit=crop',
+  document:
+    'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&h=675&fit=crop',
+  portrait:
+    'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=1200&h=675&fit=crop',
+  technical:
+    'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=1200&h=675&fit=crop',
+  diagram:
+    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop',
 };
 
 export const Default: Story = {
@@ -106,7 +112,8 @@ export const FullFeatured: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Full-featured version with all interaction modes enabled and wider zoom range.',
+        story:
+          'Full-featured version with all interaction modes enabled and wider zoom range.',
       },
     },
   },
@@ -125,7 +132,8 @@ export const TouchOnly: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Optimized for touch devices - wheel zoom disabled, pinch and double-tap enabled.',
+        story:
+          'Optimized for touch devices - wheel zoom disabled, pinch and double-tap enabled.',
       },
     },
   },
@@ -144,7 +152,8 @@ export const MouseOnly: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Optimized for mouse interactions - pinch disabled, wheel and double-click enabled.',
+        story:
+          'Optimized for mouse interactions - pinch disabled, wheel and double-click enabled.',
       },
     },
   },
@@ -163,7 +172,8 @@ export const MinimalControls: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Clean interface with no visible controls - interactions through gestures only.',
+        story:
+          'Clean interface with no visible controls - interactions through gestures only.',
       },
     },
   },

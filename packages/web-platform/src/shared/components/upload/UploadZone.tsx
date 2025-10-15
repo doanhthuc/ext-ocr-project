@@ -1,7 +1,7 @@
 import { UploadProps } from 'antd';
 import React, { useState } from 'react';
 
-import { IconUpload } from '~/assets/icons';
+import { IconUploadPicture } from '~/assets/icons';
 import { FileExt } from '~shared/types/file.type';
 import { cn } from '~shared/utils/cn.util';
 
@@ -104,7 +104,7 @@ export function UploadZone({
   };
 
   return (
-    <div className={cn('w-full', className)}>
+    <div className={cn('w-full [&_.ant-upload]:w-full', className)}>
       <Upload
         allowExts={allowExts}
         showUploadList={showUploadList}
@@ -114,44 +114,51 @@ export function UploadZone({
         maxCount={maxCount}
         accept={accept}
         disabled={disabled}
+        className=""
         {...props}
       >
         <div
           className={cn(
-            'flex flex-col items-center justify-center w-full min-h-48 p-8',
-            'border-2 border-dashed rounded-lg cursor-pointer transition-all duration-200',
+            'flex flex-col items-center justify-center w-full px-6 py-4 gap-1',
+            'border border-solid rounded-xl cursor-pointer transition-all duration-200',
+            'bg-white',
             'hover:border-primary hover:bg-bg-active',
             isDragOver && 'border-primary bg-bg-active',
             disabled && 'cursor-not-allowed opacity-50',
-            !isDragOver && !disabled && 'border-border-light bg-bg-primary'
+            !isDragOver && !disabled && 'border-border-light'
           )}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
         >
-          {/* Upload Icon */}
-          <div className="w-12 h-12 mb-4 p-3 rounded-full border border-border-light bg-bg-secondary flex items-center justify-center">
-            <IconUpload className="w-6 h-6 text-text-muted" />
-          </div>
-
-          {/* Upload Text */}
-          <div className="text-center space-y-1 mb-4">
-            <div className="text-sm text-text-tertiary">
-              <span className="font-semibold text-primary">{uploadText}</span>{' '}
-              <span>{dragText}</span>
+          {/* Content */}
+          <div className="flex flex-col items-center gap-3 w-full">
+            {/* Upload Icon */}
+            <div className="w-10 h-10 rounded-lg border border-solid border-gray-12 bg-white flex items-center justify-center">
+              <IconUploadPicture className="w-5 h-5 text-gray-13" />
             </div>
-          </div>
 
-          {/* Format Info */}
-          <div className="text-xs text-text-light text-center">
-            {formatText}
-            {maxSizeText && (
-              <>
-                <br />
-                {maxSizeText}
-              </>
-            )}
+            {/* Text and supporting text */}
+            <div className="flex flex-col items-center gap-1 w-full">
+              {/* Action */}
+              <div className="flex items-start justify-center gap-1 w-full">
+                <div className="flex items-center justify-center gap-1.5">
+                  <span className="text-sm font-semibold leading-5 text-blue-4 whitespace-nowrap">
+                    {uploadText}
+                  </span>
+                </div>
+                <span className="text-sm font-normal leading-5 text-gray-11 whitespace-nowrap">
+                  {dragText}
+                </span>
+              </div>
+
+              {/* Format Info */}
+              <div className="text-xs font-normal leading-4 text-gray-11 text-center w-full">
+                {formatText}
+                {maxSizeText && ` ${maxSizeText}`}
+              </div>
+            </div>
           </div>
         </div>
       </Upload>

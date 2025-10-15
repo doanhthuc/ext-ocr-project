@@ -18,4 +18,18 @@ export const ocr = {
   'ocr.lastModified': 'Last modified',
   'ocr.convertTo': 'Convert to',
   'ocr.sheet': 'Sheet',
+  'ocr.field.createTitle': 'Create New Field',
+  'ocr.field.editTitle': 'Edit field',
+  'ocr.field.labelName': 'Label name',
+  'ocr.field.placeholder': 'Type label name',
+  'ocr.field.confirm': 'Confirm',
+  'ocr.field.addNew': 'Add New Field',
+  'ocr.field.delete.title': 'Are you sure you want to delete this item?',
+  'ocr.field.delete.titleWithName':
+    'Are you sure you want to delete "{{name}}"?',
+  'ocr.field.delete.description': 'Please note, this action cannot be undone.',
+  'ocr.field.delete.confirm': 'Confirm',
+  'ocr.template.saveAsTitle': 'Save as template',
+  'ocr.template.templateName': 'Template name',
+  'ocr.template.placeholder': 'Type Template name',
 };

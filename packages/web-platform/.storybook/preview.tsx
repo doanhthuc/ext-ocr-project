@@ -8,7 +8,7 @@ import { themes } from 'storybook/theming';
 
 import '../src/styles/index.css';
 
-import { antConfig, PREFIX_CLASS } from '../src/configs/ant.config.ts';
+import { antConfig } from '../src/configs/ant.config.ts';
 import { tanstackClient } from '../src/configs/tanstack-query.config.ts';
 
 export default {
@@ -27,7 +27,7 @@ export default {
   decorators: [
     Story => (
       <QueryClientProvider client={tanstackClient}>
-        <ConfigProvider theme={antConfig} prefixCls={PREFIX_CLASS}>
+        <ConfigProvider theme={antConfig}>
           <App>
             <Story />
           </App>

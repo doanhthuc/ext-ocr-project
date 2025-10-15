@@ -17,7 +17,7 @@ export type ImagePreviewAdvancedProps = {
   enablePinch?: boolean;
   enableDoubleClick?: boolean;
   enableWheel?: boolean;
-}
+};
 
 export function ImagePreviewAdvanced({
   src,
@@ -70,7 +70,11 @@ export function ImagePreviewAdvanced({
 
   return (
     <>
-      <div className={containerClasses} onKeyDown={handleFullscreenEscape} tabIndex={-1}>
+      <div
+        className={containerClasses}
+        onKeyDown={handleFullscreenEscape}
+        tabIndex={-1}
+      >
         {hasError ? (
           <div className="flex items-center justify-center h-full text-text-muted">
             <div className="text-center">
@@ -85,7 +89,11 @@ export function ImagePreviewAdvanced({
             maxScale={maxScale}
             wheel={{ disabled: !enableWheel, step: 0.1 }}
             pinch={{ disabled: !enablePinch, step: 0.1 }}
-            doubleClick={{ disabled: !enableDoubleClick, step: 0.5, mode: 'toggle' }}
+            doubleClick={{
+              disabled: !enableDoubleClick,
+              step: 0.5,
+              mode: 'toggle',
+            }}
             limitToBounds={false}
             centerOnInit
             smooth
@@ -204,7 +212,9 @@ export function ImagePreviewAdvanced({
                       <button
                         onClick={toggleFullscreen}
                         className="flex items-center justify-center w-8 h-8 rounded hover:bg-gray-100 transition-colors"
-                        title={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+                        title={
+                          isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'
+                        }
                         type="button"
                       >
                         {isFullscreen ? (

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { Header } from './Header';
+import { AuthBanner } from './AuthBanner';
 
 const meta = {
-  component: Header,
-} satisfies Meta<typeof Header>;
+  component: AuthBanner,
+} satisfies Meta<typeof AuthBanner>;
 
 export default meta;
 

@@ -16,7 +16,11 @@ import { Route as PrivateIndexRouteImport } from './routes/_private/index'
 import { Route as PrivateOcrRouteImport } from './routes/_private/ocr'
 import { Route as PrivateDashboardRouteImport } from './routes/_private/dashboard'
 import { Route as AuthSignInRouteImport } from './routes/_auth/sign-in'
+import { Route as PrivateOcrIndexRouteImport } from './routes/_private/ocr.index'
 import { Route as Oauth2ProviderCallbackRouteImport } from './routes/oauth2.$provider.callback'
+import { Route as PrivateOcrImportRouteImport } from './routes/_private/ocr.import'
+import { Route as PrivateOcrDetailsRouteImport } from './routes/_private/ocr.details'
+import { Route as PrivateOcrDetailsIdRouteImport } from './routes/_private/ocr.details.$id'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -50,25 +54,52 @@ const AuthSignInRoute = AuthSignInRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => AuthRoute,
 } as any)
+const PrivateOcrIndexRoute = PrivateOcrIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PrivateOcrRoute,
+} as any)
 const Oauth2ProviderCallbackRoute = Oauth2ProviderCallbackRouteImport.update({
   id: '/oauth2/$provider/callback',
   path: '/oauth2/$provider/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivateOcrImportRoute = PrivateOcrImportRouteImport.update({
+  id: '/import',
+  path: '/import',
+  getParentRoute: () => PrivateOcrRoute,
+} as any)
+const PrivateOcrDetailsRoute = PrivateOcrDetailsRouteImport.update({
+  id: '/details',
+  path: '/details',
+  getParentRoute: () => PrivateOcrRoute,
+} as any)
+const PrivateOcrDetailsIdRoute = PrivateOcrDetailsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => PrivateOcrDetailsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/sign-in': typeof AuthSignInRoute
   '/dashboard': typeof PrivateDashboardRoute
-  '/ocr': typeof PrivateOcrRoute
+  '/ocr': typeof PrivateOcrRouteWithChildren
   '/': typeof PrivateIndexRoute
+  '/ocr/details': typeof PrivateOcrDetailsRouteWithChildren
+  '/ocr/import': typeof PrivateOcrImportRoute
   '/oauth2/$provider/callback': typeof Oauth2ProviderCallbackRoute
+  '/ocr/': typeof PrivateOcrIndexRoute
+  '/ocr/details/$id': typeof PrivateOcrDetailsIdRoute
 }
 export interface FileRoutesByTo {
   '/sign-in': typeof AuthSignInRoute
   '/dashboard': typeof PrivateDashboardRoute
-  '/ocr': typeof PrivateOcrRoute
   '/': typeof PrivateIndexRoute
+  '/ocr/details': typeof PrivateOcrDetailsRouteWithChildren
+  '/ocr/import': typeof PrivateOcrImportRoute
   '/oauth2/$provider/callback': typeof Oauth2ProviderCallbackRoute
+  '/ocr': typeof PrivateOcrIndexRoute
+  '/ocr/details/$id': typeof PrivateOcrDetailsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,9 +108,13 @@ export interface FileRoutesById {
   '/_public': typeof PublicRoute
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_private/dashboard': typeof PrivateDashboardRoute
-  '/_private/ocr': typeof PrivateOcrRoute
+  '/_private/ocr': typeof PrivateOcrRouteWithChildren
   '/_private/': typeof PrivateIndexRoute
+  '/_private/ocr/details': typeof PrivateOcrDetailsRouteWithChildren
+  '/_private/ocr/import': typeof PrivateOcrImportRoute
   '/oauth2/$provider/callback': typeof Oauth2ProviderCallbackRoute
+  '/_private/ocr/': typeof PrivateOcrIndexRoute
+  '/_private/ocr/details/$id': typeof PrivateOcrDetailsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -88,9 +123,21 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/ocr'
     | '/'
+    | '/ocr/details'
+    | '/ocr/import'
     | '/oauth2/$provider/callback'
+    | '/ocr/'
+    | '/ocr/details/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/sign-in' | '/dashboard' | '/ocr' | '/' | '/oauth2/$provider/callback'
+  to:
+    | '/sign-in'
+    | '/dashboard'
+    | '/'
+    | '/ocr/details'
+    | '/ocr/import'
+    | '/oauth2/$provider/callback'
+    | '/ocr'
+    | '/ocr/details/$id'
   id:
     | '__root__'
     | '/_auth'
@@ -100,7 +147,11 @@ export interface FileRouteTypes {
     | '/_private/dashboard'
     | '/_private/ocr'
     | '/_private/'
+    | '/_private/ocr/details'
+    | '/_private/ocr/import'
     | '/oauth2/$provider/callback'
+    | '/_private/ocr/'
+    | '/_private/ocr/details/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -161,12 +212,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_private/ocr/': {
+      id: '/_private/ocr/'
+      path: '/'
+      fullPath: '/ocr/'
+      preLoaderRoute: typeof PrivateOcrIndexRouteImport
+      parentRoute: typeof PrivateOcrRoute
+    }
     '/oauth2/$provider/callback': {
       id: '/oauth2/$provider/callback'
       path: '/oauth2/$provider/callback'
       fullPath: '/oauth2/$provider/callback'
       preLoaderRoute: typeof Oauth2ProviderCallbackRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_private/ocr/import': {
+      id: '/_private/ocr/import'
+      path: '/import'
+      fullPath: '/ocr/import'
+      preLoaderRoute: typeof PrivateOcrImportRouteImport
+      parentRoute: typeof PrivateOcrRoute
+    }
+    '/_private/ocr/details': {
+      id: '/_private/ocr/details'
+      path: '/details'
+      fullPath: '/ocr/details'
+      preLoaderRoute: typeof PrivateOcrDetailsRouteImport
+      parentRoute: typeof PrivateOcrRoute
+    }
+    '/_private/ocr/details/$id': {
+      id: '/_private/ocr/details/$id'
+      path: '/$id'
+      fullPath: '/ocr/details/$id'
+      preLoaderRoute: typeof PrivateOcrDetailsIdRouteImport
+      parentRoute: typeof PrivateOcrDetailsRoute
     }
   }
 }
@@ -181,15 +260,42 @@ const AuthRouteChildren: AuthRouteChildren = {
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
+interface PrivateOcrDetailsRouteChildren {
+  PrivateOcrDetailsIdRoute: typeof PrivateOcrDetailsIdRoute
+}
+
+const PrivateOcrDetailsRouteChildren: PrivateOcrDetailsRouteChildren = {
+  PrivateOcrDetailsIdRoute: PrivateOcrDetailsIdRoute,
+}
+
+const PrivateOcrDetailsRouteWithChildren =
+  PrivateOcrDetailsRoute._addFileChildren(PrivateOcrDetailsRouteChildren)
+
+interface PrivateOcrRouteChildren {
+  PrivateOcrDetailsRoute: typeof PrivateOcrDetailsRouteWithChildren
+  PrivateOcrImportRoute: typeof PrivateOcrImportRoute
+  PrivateOcrIndexRoute: typeof PrivateOcrIndexRoute
+}
+
+const PrivateOcrRouteChildren: PrivateOcrRouteChildren = {
+  PrivateOcrDetailsRoute: PrivateOcrDetailsRouteWithChildren,
+  PrivateOcrImportRoute: PrivateOcrImportRoute,
+  PrivateOcrIndexRoute: PrivateOcrIndexRoute,
+}
+
+const PrivateOcrRouteWithChildren = PrivateOcrRoute._addFileChildren(
+  PrivateOcrRouteChildren,
+)
+
 interface PrivateRouteChildren {
   PrivateDashboardRoute: typeof PrivateDashboardRoute
-  PrivateOcrRoute: typeof PrivateOcrRoute
+  PrivateOcrRoute: typeof PrivateOcrRouteWithChildren
   PrivateIndexRoute: typeof PrivateIndexRoute
 }
 
 const PrivateRouteChildren: PrivateRouteChildren = {
   PrivateDashboardRoute: PrivateDashboardRoute,
-  PrivateOcrRoute: PrivateOcrRoute,
+  PrivateOcrRoute: PrivateOcrRouteWithChildren,
   PrivateIndexRoute: PrivateIndexRoute,
 }
 

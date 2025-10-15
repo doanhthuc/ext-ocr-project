@@ -1,7 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router';
-
-import { OcrPage } from '~/ocr/pages/OcrPage';
+import { createFileRoute, Outlet } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/_private/ocr')({
-  component: OcrPage,
+  component: Outlet,
 });

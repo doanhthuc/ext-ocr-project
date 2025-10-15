@@ -18,68 +18,15 @@ export function OcrImportCard({
   return (
     <div
       className={cn(
-        'flex-1 bg-white rounded-2xl shadow-sm p-6 cursor-pointer hover:shadow-md transition-shadow',
+        'flex-1 bg-white rounded-xl overflow-hidden p-6 cursor-pointer hover:shadow-md transition-shadow flex flex-col gap-4',
         className
       )}
       onClick={onClick}
     >
-      <div className="relative">
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[243px] h-[212px]">
-          <svg
-            width="244"
-            height="136"
-            viewBox="0 0 244 136"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-[35px] opacity-50"
-          >
-            <circle
-              cx="121.5"
-              cy="68"
-              r="67.5"
-              stroke="rgb(var(--color-stroke-light))"
-              strokeWidth="1.36"
-            />
-          </svg>
-          <svg
-            width="244"
-            height="136"
-            viewBox="0 0 244 136"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-[76px]"
-          >
-            <circle
-              cx="121.5"
-              cy="68"
-              r="67.5"
-              stroke="rgb(var(--color-stroke-light))"
-              strokeWidth="1.36"
-            />
-          </svg>
-          <svg
-            width="244"
-            height="136"
-            viewBox="0 0 244 136"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="absolute top-0 opacity-70"
-          >
-            <circle
-              cx="121.5"
-              cy="68"
-              r="67.5"
-              stroke="rgb(var(--color-stroke-light))"
-              strokeWidth="1.36"
-            />
-          </svg>
-        </div>
-      </div>
-
-      <div className="flex flex-col items-center mt-24">
-        <div className="mb-4">{icon}</div>
-        <span className="text-[28px] text-black-2">{title}</span>
-      </div>
+      <div className="w-14 h-14">{icon}</div>
+      <p className="text-[22px] font-medium leading-8 text-[#0C2042]">
+        {title}
+      </p>
     </div>
   );
 }

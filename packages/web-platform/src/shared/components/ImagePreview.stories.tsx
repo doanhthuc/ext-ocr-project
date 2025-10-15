@@ -9,7 +9,8 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: 'An image preview component with zoom, pan, and pinch functionality in a 16:9 aspect ratio.',
+        component:
+          'An image preview component with zoom, pan, and pinch functionality in a 16:9 aspect ratio.',
       },
     },
   },
@@ -51,10 +52,14 @@ type Story = StoryObj<typeof meta>;
 
 // Sample images for demonstration
 const sampleImages = {
-  landscape: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=450&fit=crop',
-  document: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=450&fit=crop',
-  portrait: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&h=450&fit=crop',
-  technical: 'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&h=450&fit=crop',
+  landscape:
+    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=450&fit=crop',
+  document:
+    'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&h=450&fit=crop',
+  portrait:
+    'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&h=450&fit=crop',
+  technical:
+    'https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?w=800&h=450&fit=crop',
 };
 
 export const Default: Story = {
@@ -128,7 +133,8 @@ export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive playground to test all features. Try zooming with mouse wheel, double-clicking, or using the control buttons.',
+        story:
+          'Interactive playground to test all features. Try zooming with mouse wheel, double-clicking, or using the control buttons.',
       },
     },
   },

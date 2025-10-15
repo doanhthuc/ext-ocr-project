@@ -1,4 +1,4 @@
-import type { en } from './locales/en';
+import type { en } from './locales';
 
 export type SupportedLanguage = 'en' | 'vi';
 

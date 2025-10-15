@@ -5,6 +5,8 @@ import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
+import twMerge from './plugins/vite-tw-merge.plugin';
+
 export default defineConfig({
   plugins: [
     tsconfigPaths(),
@@ -14,6 +16,7 @@ export default defineConfig({
       jsxImportSource: '@emotion/react',
     }),
     svgr(),
+    twMerge(),
   ],
   base: '/',
   server: {

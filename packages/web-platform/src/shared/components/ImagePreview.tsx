@@ -13,7 +13,7 @@ export type ImagePreviewProps = {
   minScale?: number;
   maxScale?: number;
   initialScale?: number;
-}
+};
 
 export function ImagePreview({
   src,

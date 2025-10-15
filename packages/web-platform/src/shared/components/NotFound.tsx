@@ -3,7 +3,6 @@ import { useNavigate } from '@tanstack/react-router';
 import { Button } from 'antd';
 
 import IMAGE_NOT_FOUND from '~/assets/images/404.png';
-import { DashboardIllustration } from '~shared/components/DashboardIllustration';
 import { useTranslation } from '~shared/hooks/useTranslation';
 
 export function NotFound() {
@@ -25,12 +24,8 @@ export function NotFound() {
         <h1 className="text-5xl font-semibold mb-6">{t('notFound.title')}</h1>
         <img width={200} height={150} src={IMAGE_NOT_FOUND} className="mb-6" />
         <div className="text-xl">{t('notFound.subtitle')}</div>
-        <div className="text-xl">
-          {t('notFound.description')}
-        </div>
+        <div className="text-xl">{t('notFound.description')}</div>
       </div>
-
-      <DashboardIllustration />
     </div>
   );
 }

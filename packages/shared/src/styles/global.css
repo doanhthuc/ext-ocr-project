@@ -22,6 +22,8 @@
   --color-text-light: #667085;
   --color-text-lighter: #7d89b0;
   --color-text-lightest: #5d6b98;
+  --color-text-placeholder: #a6aebb;
+  --color-text-dark: #091e42;
 
   /* Semantic Colors */
   --color-error: #c00f0c;
@@ -44,6 +46,7 @@
   --color-border: #d9d9d9;
   --color-border-light: #e4e7ec;
   --color-border-lighter: #d0d5dd;
+  --color-border-secondary: #c2c7d0;
 
   /* Background Colors */
   --color-bg-primary: #ffffff;
@@ -77,11 +80,25 @@
   --color-gray-8: #eaecf0;
   --color-gray-9: #344054;
   --color-gray-10: #b3b3b3;
+  --color-gray-11: #505f79;
+  --color-gray-12: #dee5ef;
+  --color-gray-13: #091e42;
 
   /* Blue Scale */
   --color-blue-1: #edf0fe;
   --color-blue-2: #4c6ef6;
   --color-blue-3: #2344c3;
+  --color-blue-4: #2970ff;
+  --color-blue-light: #d5e9fe;
+
+  /* Brand Colors */
+  --color-brand-500: #2e90fa;
+  --color-brand-800: #0049da;
+  --color-brand-900: #000c25;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(324deg, #0049da 20.9%, #2e90fa 110.29%);
+  --gradient-title: linear-gradient(180deg, #000c25 0%, #0049da 100%);
 
   /* Cyan Scale */
   --color-cyan-2: #edf0fe;
@@ -89,6 +106,7 @@
   /* Green Scale */
   --color-green-1: #ebffee;
   --color-green-2: #02542d;
+  --color-green-3: #12b76a;
 
   /* Orange Scale */
   --color-orange-1: #fff1c2;
@@ -100,6 +118,7 @@
 
   /* Red Scale */
   --color-red-1: #c00f0c;
+  --color-red-6: #f04438;
   --color-red-tertiary: #fee9e7;
 
   /* Yellow Scale */
@@ -118,13 +137,25 @@
 }
 
 @layer components {
-  .atlas-btn-icon {
-    @apply flex;
-  }
+  /* Primary Button Gradient */
+  .ant-btn-primary {
+    background: var(--gradient-primary) !important;
+    border: none !important;
 
-  .atlas-dashboard {
-    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.07);
-    @apply bg-white;
-    @apply rounded-2xl;
+    &:not(:disabled):hover,
+    &:not(:disabled):focus {
+      background: var(--gradient-primary) !important;
+      opacity: 0.9;
+    }
+
+    &:not(:disabled):active {
+      background: var(--gradient-primary) !important;
+      opacity: 0.8;
+    }
+
+    &:disabled {
+      background: var(--gradient-primary) !important;
+      opacity: 0.5;
+    }
   }
 }

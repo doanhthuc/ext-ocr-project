@@ -2,8 +2,6 @@ import { ThemeConfig } from 'antd';
 
 import { getCSSVariable } from '~shared/utils/get-css-variable.util';
 
-export const PREFIX_CLASS = 'atlas';
-
 export const antConfig: ThemeConfig = {
   cssVar: true,
   token: {
@@ -25,6 +23,7 @@ export const antConfig: ThemeConfig = {
   components: {
     Button: {
       onlyIconSize: 20,
+      borderRadius: 32,
     },
     Tag: {
       borderRadiusSM: 9999,
