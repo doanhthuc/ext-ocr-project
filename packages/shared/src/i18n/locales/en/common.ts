@@ -1,6 +1,7 @@
 export const common = {
   'common.ok': 'OK',
   'common.cancel': 'Cancel',
+  'common.confirm': 'Confirm',
   'common.save': 'Save',
   'common.delete': 'Delete',
   'common.edit': 'Edit',

@@ -1,6 +1,3 @@
-import { Button } from 'antd';
-
-import { IconCircleMore, IconFileSearch02 } from '~/assets/icons';
 import { ProgressBar } from '~/shared/components/progress/ProgressBar';
 import { cn } from '~/shared/utils/cn.util';
 import { useTranslation } from '~shared/hooks/useTranslation';
@@ -9,11 +6,8 @@ export type OcrDocumentCardProps = {
   thumbnail?: string;
   fileName: string;
   lastModified: string;
-  convertTo: 'Docx' | 'Excel';
   isLoading?: boolean;
   progress?: number;
-  sheetCount?: number;
-  onMoreClick?: () => void;
   className?: string;
 };
 
@@ -21,16 +15,11 @@ export function OcrDocumentCard({
   thumbnail,
   fileName,
   lastModified,
-  convertTo,
   isLoading = false,
   progress = 0,
-  sheetCount,
-  onMoreClick,
   className,
 }: OcrDocumentCardProps) {
   const { t } = useTranslation();
-  const isExcel = convertTo === 'Excel';
-  const colorClass = isExcel ? 'text-success-lighter' : 'text-primary-light';
 
   return (
     <div
@@ -58,9 +47,6 @@ export function OcrDocumentCard({
             <span className="text-xs text-text-lighter">
               {t('ocr.lastModified')}: {lastModified}
             </span>
-            <span className={cn('text-xs', colorClass)}>
-              {t('ocr.convertTo')} {convertTo}
-            </span>
           </div>
 
           {isLoading ? (
@@ -70,28 +56,9 @@ export function OcrDocumentCard({
               label={`${progress}%`}
               className="progress-bar-custom"
             />
-          ) : (
-            <div className="flex items-center justify-between w-full">
-              <div className="flex items-center gap-1">
-                <IconFileSearch02 className="text-icon-muted" />
-                <span className="text-sm font-normal text-text-lighter">
-                  {sheetCount} {t('ocr.sheet')}
-                </span>
-              </div>
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
-
-      {!isLoading && onMoreClick && (
-        <Button
-          type="text"
-          className="flex items-center justify-center w-7 h-7 p-0"
-          onClick={onMoreClick}
-        >
-          <IconCircleMore className="text-text-secondary" />
-        </Button>
-      )}
     </div>
   );
 }

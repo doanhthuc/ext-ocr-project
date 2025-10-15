@@ -1,6 +1,7 @@
 export const common = {
   'common.ok': 'Đồng ý',
   'common.cancel': 'Hủy bỏ',
+  'common.confirm': 'Xác nhận',
   'common.save': 'Lưu',
   'common.delete': 'Xóa',
   'common.edit': 'Chỉnh sửa',

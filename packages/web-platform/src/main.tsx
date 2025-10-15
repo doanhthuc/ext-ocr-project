@@ -1,5 +1,6 @@
+import { detectLanguage, isRTL } from '@ocr-platform/shared/i18n';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createRouter, RouterProvider } from '@tanstack/react-router';
 import { App, ConfigProvider } from 'antd';
 import dayjs from 'dayjs';
@@ -9,15 +10,13 @@ import ReactDOM from 'react-dom/client';
 
 import { useAuth } from '~/auth/hooks/useAuth';
 import { routeTree } from '~/routeTree.gen';
-import { antConfig, PREFIX_CLASS } from '~config/ant.config';
 import { tanstackClient } from '~config/tanstack-query.config';
 import { useNotification } from '~shared/hooks/useNotification';
 
 // Import shared global CSS
 import '@ocr-platform/shared/src/styles/global.css';
-
-// Initialize i18n
-import { detectLanguage, isRTL } from '@ocr-platform/shared/i18n';
+// eslint-disable-next-line perfectionist/sort-imports
+import { antConfig } from '~config/ant.config';
 
 // Set initial language and direction
 const initialLanguage = detectLanguage();
@@ -44,7 +43,7 @@ declare module '@tanstack/react-router' {
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={tanstackClient}>
-      <ConfigProvider theme={antConfig} prefixCls={PREFIX_CLASS}>
+      <ConfigProvider theme={antConfig}>
         <App>
           <AtlasApp />
         </App>
@@ -60,7 +59,7 @@ export function AtlasApp() {
   return (
     <>
       <RouterProvider router={router} context={{ auth, notification }} />
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" />
+      {/* <ReactQueryDevtools initialIsOpen={false} buttonPosition="top-left" /> */}
     </>
   );
 }

@@ -1,11 +1,17 @@
-// Types
-export type * from './types';
-
 // Configuration
-export { i18nConfig, defaultLanguage, supportedLanguages, isRTL, getLanguageDisplayName } from './config';
+export {
+  i18nConfig,
+  defaultLanguage,
+  supportedLanguages,
+  isRTL,
+  getLanguageDisplayName,
+} from './config';
 
 // Locales
 export * from './locales';
+
+// Types
+export type * from './types';
 
 // Utils
 export {

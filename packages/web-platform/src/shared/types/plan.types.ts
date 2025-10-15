@@ -2,7 +2,7 @@ export type PlanFeature = {
   id: string;
   text: string;
   isIncluded: boolean;
-}
+};
 
 export type Plan = {
   id: string;
@@ -13,7 +13,7 @@ export type Plan = {
   features: Array<PlanFeature>;
   isSelected: boolean;
   isPopular?: boolean;
-}
+};
 
 export type PlanSelectionModalProps = {
   isOpen: boolean;
@@ -23,4 +23,4 @@ export type PlanSelectionModalProps = {
   onPlanSelect: (planId: string) => void;
   onSubscribe: (planId: string) => void;
   loading?: boolean;
-}
+};

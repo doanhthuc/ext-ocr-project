@@ -1,7 +1,6 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { Layout } from 'antd';
 
-import { Header } from '~shared/components/layout/Header';
 import { Sidebar } from '~shared/components/layout/Sidebar';
 
 const { Content } = Layout;
@@ -17,14 +16,18 @@ export const Route = createFileRoute('/_private')({
 function PrivateLayout() {
   return (
     <Layout className="h-screen">
-      <Header />
-      <Layout className="h-[calc(100%-48px)]">
-        <Sidebar />
-        <Layout>
-          <Content className="overflow-y-auto">
+      <Sidebar />
+      <Layout
+        style={{
+          background: 'linear-gradient(180deg, #000C25 0%, #0049DA 100%)',
+        }}
+        className="p-4"
+      >
+        <Content className="bg-white rounded-[24px] overflow-hidden h-full">
+          <div className="h-full overflow-y-auto">
             <Outlet />
-          </Content>
-        </Layout>
+          </div>
+        </Content>
       </Layout>
     </Layout>
   );
