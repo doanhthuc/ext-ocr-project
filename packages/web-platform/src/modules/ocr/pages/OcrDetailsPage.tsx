@@ -1,35 +1,49 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from '@tanstack/react-router';
 import { Breadcrumb } from 'antd';
 import { useState } from 'react';
-
-import type { FieldData } from '~shared/components/KeyValueFieldList';
+import { useForm } from 'react-hook-form';
 
 import { DetailsLeftPanel } from '~/ocr/components/DetailsLeftPanel';
 import { DetailsRightPanel } from '~/ocr/components/DetailsRightPanel';
+import {
+  keyValueFieldListSchema,
+  type KeyValueFieldListFormData,
+} from '~shared/schemas';
 
 export function OcrDetailsPage() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('key-value-pairs');
-  const [selectedTemplate, setSelectedTemplate] = useState<string>(
-    'Template Bill Restaurant'
-  );
-  const [fields, setFields] = useState<Array<FieldData>>([
-    {
-      id: '1',
-      label: 'Invoice Number',
-      value: 'INV-001',
-    },
-    {
-      id: '2',
-      label: 'Date',
-      value: '2025-10-14',
-    },
-    {
-      id: '3',
-      label: 'Total Amount',
-      value: '$150.00',
-    },
-  ]);
+
+  // Initialize React Hook Form with Zod validation
+  const { control, handleSubmit, watch, setValue } =
+    useForm<KeyValueFieldListFormData>({
+      resolver: zodResolver(keyValueFieldListSchema),
+      defaultValues: {
+        selectedTemplate: 'Template Bill Restaurant',
+        fields: [
+          {
+            id: '1',
+            label: 'Invoice Number',
+            value: 'INV-001',
+          },
+          {
+            id: '2',
+            label: 'Date',
+            value: '2025-10-14',
+          },
+          {
+            id: '3',
+            label: 'Total Amount',
+            value: '$150.00',
+          },
+        ],
+      },
+    });
+
+  // Watch form values
+  const selectedTemplate = watch('selectedTemplate');
+  const fields = watch('fields');
 
   const templates = [
     { value: 'Template Bill Restaurant', label: 'Template Bill Restaurant' },
@@ -37,36 +51,15 @@ export function OcrDetailsPage() {
     { value: 'Template Receipt', label: 'Template Receipt' },
   ];
 
-  const handleAddField = () => {
-    const newField: FieldData = {
-      id: Date.now().toString(),
-      label: 'New Field',
-      value: '',
-    };
-    setFields(prev => [...prev, newField]);
-  };
-
-  const handleEditField = (fieldId: string) => {
-    console.log('Edit field:', fieldId);
-  };
-
-  const handleDeleteField = (fieldId: string) => {
-    setFields(prev => prev.filter(field => field.id !== fieldId));
-  };
-
-  const handleFieldChange = (fieldId: string, value: string) => {
-    setFields(prev =>
-      prev.map(field => (field.id === fieldId ? { ...field, value } : field))
-    );
-  };
-
   const handleTemplateChange = (template: string) => {
-    setSelectedTemplate(template);
+    setValue('selectedTemplate', template);
   };
 
-  const handleSave = () => {
-    console.log('Save clicked');
-  };
+  const handleSave = handleSubmit(data => {
+    console.log('Form data:', data);
+    // TODO: Send data to API
+    // Example: await saveOcrData(data);
+  });
 
   const handleBack = () => {
     navigate({ to: '/ocr/import' });
@@ -95,13 +88,10 @@ export function OcrDetailsPage() {
         <DetailsRightPanel
           activeTab={activeTab}
           onTabChange={setActiveTab}
+          control={control}
           fields={fields}
           selectedTemplate={selectedTemplate}
           templates={templates}
-          onAddField={handleAddField}
-          onEditField={handleEditField}
-          onDeleteField={handleDeleteField}
-          onFieldChange={handleFieldChange}
           onTemplateChange={handleTemplateChange}
           onSave={handleSave}
         />

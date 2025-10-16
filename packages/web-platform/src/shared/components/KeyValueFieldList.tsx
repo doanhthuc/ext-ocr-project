@@ -1,5 +1,10 @@
+import type { Control, FieldValues } from 'react-hook-form';
+
 import { Button, Select } from 'antd';
 import { useState } from 'react';
+import { useFieldArray } from 'react-hook-form';
+
+import type { KeyValueFieldListFormData } from '~shared/schemas';
 
 import { IconArrowDown01Sharp, IconPlusSign } from '~icons';
 import { useTranslation } from '~shared/hooks/useTranslation';
@@ -18,13 +23,15 @@ export type FieldData = {
   value: string;
 };
 
-export type KeyValueFieldListProps = {
-  /** Array of field data to display */
+export type KeyValueFieldListProps<
+  TFieldValues extends FieldValues = KeyValueFieldListFormData,
+> = {
+  /** Array of field data to display (used when not using react-hook-form) */
   fields?: Array<FieldData>;
   /** Current selected template */
   selectedTemplate?: string;
   /** Available templates for the dropdown */
-  templates?: Array<{ value: string; label: string }>;
+  templates?: Array<{ label: string; value: string }>;
   /** Callback when add new field button is clicked - receives the new label name */
   onAddField?: (labelName: string) => void;
   /** Callback when template is changed */
@@ -37,10 +44,16 @@ export type KeyValueFieldListProps = {
   onFieldChange?: (fieldId: string, value: string) => void;
   /** Additional class name for the container */
   className?: string;
+  /** React Hook Form control object (optional) */
+  control?: Control<TFieldValues>;
+  /** Field name for the fields array in react-hook-form (default: 'fields') */
+  fieldsName?: 'fields';
 };
 
-export function KeyValueFieldList({
-  fields = [],
+export function KeyValueFieldList<
+  TFieldValues extends FieldValues = KeyValueFieldListFormData,
+>({
+  fields: propFields = [],
   selectedTemplate = 'Template Bill Restaurant',
   templates = [],
   onAddField,
@@ -49,27 +62,45 @@ export function KeyValueFieldList({
   onDeleteField,
   onFieldChange,
   className,
-}: KeyValueFieldListProps) {
+  control,
+  fieldsName = 'fields',
+}: KeyValueFieldListProps<TFieldValues>) {
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
-  const [editingFieldId, setEditingFieldId] = useState<string | null>(null);
+  const [editingFieldIndex, setEditingFieldIndex] = useState<number | null>(
+    null
+  );
   const [editingFieldLabel, setEditingFieldLabel] = useState('');
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [deletingFieldId, setDeletingFieldId] = useState<string | null>(null);
+  const [deletingFieldIndex, setDeletingFieldIndex] = useState<number | null>(
+    null
+  );
+
+  // Use react-hook-form's useFieldArray if control is provided
+  const fieldArray = control
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks
+      useFieldArray({
+        control,
+        name: fieldsName as never,
+      })
+    : null;
+
+  // Determine which fields to use (react-hook-form or prop-based)
+  const fields = fieldArray?.fields ?? propFields;
 
   const handleOpenCreateModal = () => {
     setModalMode('create');
-    setEditingFieldId(null);
+    setEditingFieldIndex(null);
     setEditingFieldLabel('');
     setIsModalOpen(true);
   };
 
-  const handleOpenEditModal = (fieldId: string) => {
-    const field = fields.find(f => f.id === fieldId);
+  const handleOpenEditModal = (index: number) => {
+    const field = fields[index] as FieldData;
     if (field) {
       setModalMode('edit');
-      setEditingFieldId(fieldId);
+      setEditingFieldIndex(index);
       setEditingFieldLabel(field.label);
       setIsModalOpen(true);
     }
@@ -77,37 +108,65 @@ export function KeyValueFieldList({
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setEditingFieldId(null);
+    setEditingFieldIndex(null);
     setEditingFieldLabel('');
   };
 
   const handleConfirmModal = (labelName: string) => {
     if (modalMode === 'create') {
-      onAddField?.(labelName);
-    } else if (modalMode === 'edit' && editingFieldId) {
-      onEditField?.(editingFieldId, labelName);
+      if (fieldArray) {
+        // React Hook Form approach
+        const newId = `field-${Date.now()}`;
+        fieldArray.append({ id: newId, label: labelName, value: '' } as never);
+      } else {
+        // Traditional callback approach
+        onAddField?.(labelName);
+      }
+    } else if (modalMode === 'edit' && editingFieldIndex !== null) {
+      if (fieldArray) {
+        // React Hook Form approach
+        const field = fields[editingFieldIndex] as FieldData;
+        fieldArray.update(editingFieldIndex, {
+          ...field,
+          label: labelName,
+        } as never);
+      } else {
+        // Traditional callback approach
+        const field = fields[editingFieldIndex] as FieldData;
+        onEditField?.(field.id, labelName);
+      }
     }
     handleCloseModal();
   };
 
-  const handleOpenDeleteModal = (fieldId: string) => {
-    setDeletingFieldId(fieldId);
+  const handleOpenDeleteModal = (index: number) => {
+    setDeletingFieldIndex(index);
     setIsDeleteModalOpen(true);
   };
 
   const handleCloseDeleteModal = () => {
     setIsDeleteModalOpen(false);
-    setDeletingFieldId(null);
+    setDeletingFieldIndex(null);
   };
 
   const handleConfirmDelete = () => {
-    if (deletingFieldId) {
-      onDeleteField?.(deletingFieldId);
+    if (deletingFieldIndex !== null) {
+      if (fieldArray) {
+        // React Hook Form approach
+        fieldArray.remove(deletingFieldIndex);
+      } else {
+        // Traditional callback approach
+        const field = fields[deletingFieldIndex] as FieldData;
+        onDeleteField?.(field.id);
+      }
     }
     handleCloseDeleteModal();
   };
 
-  const deletingField = fields.find(f => f.id === deletingFieldId);
+  const deletingField =
+    deletingFieldIndex !== null
+      ? (fields[deletingFieldIndex] as FieldData)
+      : null;
 
   return (
     <div
@@ -144,17 +203,37 @@ export function KeyValueFieldList({
       </div>
 
       {/* Fields List */}
-      {fields.map(field => (
-        <LabeledInputField
-          key={field.id}
-          label={field.label}
-          value={field.value}
-          placeholder="-"
-          onEdit={() => handleOpenEditModal(field.id)}
-          onDelete={() => handleOpenDeleteModal(field.id)}
-          onChange={e => onFieldChange?.(field.id, e.target.value)}
-        />
-      ))}
+      {fields.map((field, index) => {
+        const fieldData = field as FieldData;
+
+        // React Hook Form approach
+        if (control) {
+          return (
+            <LabeledInputField
+              key={fieldData.id || `field-${index}`}
+              label={fieldData.label}
+              placeholder="-"
+              control={control}
+              name={`${fieldsName}.${index}.value` as never}
+              onEdit={() => handleOpenEditModal(index)}
+              onDelete={() => handleOpenDeleteModal(index)}
+            />
+          );
+        }
+
+        // Traditional callback approach
+        return (
+          <LabeledInputField
+            key={fieldData.id}
+            label={fieldData.label}
+            value={fieldData.value}
+            placeholder="-"
+            onEdit={() => handleOpenEditModal(index)}
+            onDelete={() => handleOpenDeleteModal(index)}
+            onChange={e => onFieldChange?.(fieldData.id, e.target.value)}
+          />
+        );
+      })}
 
       {/* Empty State */}
       {fields.length === 0 && (

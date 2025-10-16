@@ -1,13 +1,9 @@
-// Export all components
 export * from './AuthBanner';
-// Export components from subdirectories
 export * from './DeleteConfirmModal';
-export * from './drawer/Drawer';
 export * from './Empty';
 export * from './FieldModal';
 export * from './FileItem';
 export * from './Forbidden';
-export * from './grid/Grid';
 export * from './i18n/TranslatedText';
 export * from './KeyValueFieldList';
 export * from './LabeledInputField';
@@ -15,16 +11,12 @@ export * from './LanguageSelector';
 
 export * from './LanguageSwitcher';
 export * from './layout/Sidebar';
-export * from './logo/LogoFilled';
-export * from './logo/LogoSquare';
 export * from './NotFound';
 export * from './OcrEmptyState';
 export * from './plan-selection';
 export * from './progress/ProgressBar';
 export * from './SaveAsTemplateModal';
-export * from './segmented/Segmented';
 export * from './Spinner';
-export * from './table';
 export * from './TemplateCard';
 export * from './TranslationCard';
 export * from './upload';

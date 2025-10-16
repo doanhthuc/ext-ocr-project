@@ -1,28 +1,39 @@
+import type { Control, FieldValues } from 'react-hook-form';
+
 import { Button, Tabs } from 'antd';
 import { useState } from 'react';
 
 import type { FieldData } from '~shared/components/KeyValueFieldList';
+import type { KeyValueFieldListFormData } from '~shared/schemas';
 
 import { KeyValueFieldList, SaveAsTemplateModal } from '~shared/components';
 
-type DetailsRightPanelProps = {
+type DetailsRightPanelProps<
+  TFieldValues extends FieldValues = KeyValueFieldListFormData,
+> = {
   activeTab: string;
   fields: Array<FieldData>;
-  onAddField?: () => void;
-  onDeleteField?: (fieldId: string) => void;
-  onEditField?: (fieldId: string) => void;
-  onFieldChange?: (fieldId: string, value: string) => void;
   onSave: () => void;
   onSaveAsTemplate?: (templateName: string) => void;
   onTabChange: (key: string) => void;
   onTemplateChange?: (template: string) => void;
   selectedTemplate?: string;
   templates?: Array<{ label: string; value: string }>;
+  /** React Hook Form control (optional - for form integration) */
+  control?: Control<TFieldValues>;
+  /** Legacy callbacks (for backward compatibility) */
+  onAddField?: () => void;
+  onDeleteField?: (fieldId: string) => void;
+  onEditField?: (fieldId: string) => void;
+  onFieldChange?: (fieldId: string, value: string) => void;
 };
 
-export function DetailsRightPanel({
+export function DetailsRightPanel<
+  TFieldValues extends FieldValues = KeyValueFieldListFormData,
+>({
   activeTab,
   fields,
+  control,
   onAddField,
   onDeleteField,
   onEditField,
@@ -33,7 +44,7 @@ export function DetailsRightPanel({
   onTemplateChange,
   selectedTemplate,
   templates,
-}: DetailsRightPanelProps) {
+}: DetailsRightPanelProps<TFieldValues>) {
   const [isSaveAsTemplateModalOpen, setIsSaveAsTemplateModalOpen] =
     useState(false);
 
@@ -68,6 +79,8 @@ export function DetailsRightPanel({
         {/* Content Area */}
         {activeTab === 'key-value-pairs' && (
           <KeyValueFieldList
+            control={control}
+            fieldsName="fields"
             fields={fields}
             selectedTemplate={selectedTemplate}
             templates={templates}
