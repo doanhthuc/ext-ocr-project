@@ -1,0 +1,242 @@
+[
+  {
+    "page_no": 0,
+    "input_height": 1008,
+    "input_width": 756,
+    "cells": [
+      {
+        "bbox": [43, 24, 82, 63],
+        "category": "Picture"
+      },
+      {
+        "bbox": [84, 29, 431, 45],
+        "category": "Section-header",
+        "text": "SUN HUNG KAI PROPERTIES INSURANCE LTD"
+      },
+      {
+        "bbox": [84, 47, 334, 63],
+        "category": "Text",
+        "text": "新鴻基地產保險有限公司"
+      },
+      {
+        "bbox": [571, 29, 704, 63],
+        "category": "Text",
+        "text": "Rm2309-16 Sun Hung Kai Centre,\n30 Harbour Road, Wan Chai, Hong Kong\nTelephone: 2827 8111 Facsimile: 2827 0622\nWebsite: http://www.sunsuninsurance.com.hk\nE-Mail: shk@skp.com.hk"
+      },
+      {
+        "bbox": [44, 79, 267, 96],
+        "category": "Section-header",
+        "text": "CLAIM FORM 賠償申請表格"
+      },
+      {
+        "bbox": [44, 112, 324, 141],
+        "category": "Section-header",
+        "text": "甲項                          投保人資料\nSECTION A              INSURED'S INFORMATION"
+      },
+      {
+        "bbox": [50, 141, 122, 155],
+        "category": "List-item",
+        "text": "(一) 姓名"
+      },
+      {
+        "bbox": [50, 155, 131, 169],
+        "category": "List-item",
+        "text": "(1) Name:"
+      },
+      {
+        "bbox": [50, 169, 154, 184],
+        "category": "List-item",
+        "text": "(二) 聯絡地址"
+      },
+      {
+        "bbox": [50, 184, 176, 211],
+        "category": "List-item",
+        "text": "(2) Correspondence\nAddress:"
+      },
+      {
+        "bbox": [50, 226, 154, 241],
+        "category": "List-item",
+        "text": "(三) 住宅電話"
+      },
+      {
+        "bbox": [50, 241, 154, 312],
+        "category": "List-item",
+        "text": "(3) Home Tel.\n辦事處電話\nOffice Tel.\n電子郵件\nE-mail Address"
+      },
+      {
+        "bbox": [50, 312, 154, 327],
+        "category": "List-item",
+        "text": "(四) 保單號碼"
+      },
+      {
+        "bbox": [50, 327, 154, 342],
+        "category": "List-item",
+        "text": "(4) Policy No.:"
+      },
+      {
+        "bbox": [563, 141, 714, 166],
+        "category": "Text",
+        "text": "For Office Use Only 公司專用\nDate Submitted"
+      },
+      {
+        "bbox": [563, 183, 647, 198],
+        "category": "Text",
+        "text": "Type of Policy :"
+      },
+      {
+        "bbox": [563, 211, 664, 225],
+        "category": "List-item",
+        "text": "(a) Householder"
+      },
+      {
+        "bbox": [563, 240, 664, 255],
+        "category": "List-item",
+        "text": "(b) Houseowner"
+      },
+      {
+        "bbox": [563, 297, 647, 312],
+        "category": "Text",
+        "text": "Claim Number :"
+      },
+      {
+        "bbox": [44, 355, 300, 382],
+        "category": "Section-header",
+        "text": "乙項       SECTION B\n索償資料     CLAIM INFORMATION"
+      },
+      {
+        "bbox": [50, 382, 236, 397],
+        "category": "List-item",
+        "text": "(一) 意外或損失發生日期"
+      },
+      {
+        "bbox": [50, 397, 216, 411],
+        "category": "List-item",
+        "text": "(1) Date of accident or loss"
+      },
+      {
+        "bbox": [389, 382, 420, 397],
+        "category": "Text",
+        "text": "時間"
+      },
+      {
+        "bbox": [389, 397, 417, 411],
+        "category": "Text",
+        "text": "Time"
+      },
+      {
+        "bbox": [504, 382, 535, 397],
+        "category": "Text",
+        "text": "地點"
+      },
+      {
+        "bbox": [504, 397, 533, 411],
+        "category": "Text",
+        "text": "Place"
+      },
+      {
+        "bbox": [50, 425, 300, 439],
+        "category": "List-item",
+        "text": "(二) 請詳述意外或損失發生的情形"
+      },
+      {
+        "bbox": [50, 439, 431, 452],
+        "category": "List-item",
+        "text": "(2) State the circumstances of the loss or damage with full particulars"
+      },
+      {
+        "bbox": [50, 504, 500, 519],
+        "category": "List-item",
+        "text": "(三) 如遇盜竊，請詳述發生經過的情形(竊匿從何處進入屋內)？"
+      },
+      {
+        "bbox": [50, 519, 571, 532],
+        "category": "List-item",
+        "text": "(3) In the case of Theft, please give full details showing how access to the property was effected"
+      },
+      {
+        "bbox": [50, 593, 186, 608],
+        "category": "List-item",
+        "text": "(四) 要求賠償數目"
+      },
+      {
+        "bbox": [50, 608, 427, 622],
+        "category": "List-item",
+        "text": "(4) Amount claimed (for details see overleaf) (詳情請閱前頁)"
+      },
+      {
+        "bbox": [463, 593, 494, 608],
+        "category": "Text",
+        "text": "港幣"
+      },
+      {
+        "bbox": [463, 608, 490, 622],
+        "category": "Text",
+        "text": "HKD"
+      },
+      {
+        "bbox": [50, 626, 297, 640],
+        "category": "List-item",
+        "text": "(五) 索償者是否財物之唯一主人？"
+      },
+      {
+        "bbox": [50, 640, 419, 654],
+        "category": "List-item",
+        "text": "(5) Is the Claimant the sole owner of the property lost for damaged?"
+      },
+      {
+        "bbox": [651, 626, 688, 640],
+        "category": "Text",
+        "text": "是 Yes"
+      },
+      {
+        "bbox": [651, 640, 688, 654],
+        "category": "Text",
+        "text": "否 No"
+      },
+      {
+        "bbox": [50, 659, 595, 674],
+        "category": "List-item",
+        "text": "(六) 是否有其他保險保障該財物？若有，請詳述承保公司，保額及保險種類"
+      },
+      {
+        "bbox": [50, 674, 559, 688],
+        "category": "List-item",
+        "text": "(6) Are there any other insurances upon the same property? If yes, please give full particulars."
+      },
+      {
+        "bbox": [651, 659, 688, 674],
+        "category": "Text",
+        "text": "是 Yes"
+      },
+      {
+        "bbox": [651, 674, 688, 688],
+        "category": "Text",
+        "text": "否 No"
+      },
+      {
+        "bbox": [50, 749, 431, 764],
+        "category": "List-item",
+        "text": "(七) 以前曾否遭遇同樣性質的損失？若有，請詳述之"
+      },
+      {
+        "bbox": [50, 764, 577, 778],
+        "category": "List-item",
+        "text": "(7) Has the claimant sustained other losses of the same nature? If yes, please give full particulars."
+      },
+      {
+        "bbox": [651, 749, 688, 764],
+        "category": "Text",
+        "text": "是 Yes"
+      },
+      {
+        "bbox": [651, 764, 688, 778],
+        "category": "Text",
+        "text": "否 No"
+      }
+    ],
+    "image_with_layout": null,
+    "md_content": "![](data:image/png;base64,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)\n\nSUN HUNG KAI PROPERTIES INSURANCE LTD\n\n新鴻基地產保險有限公司\n\nRm2309-16 Sun Hung Kai Centre,\n30 Harbour Road, Wan Chai, Hong Kong\nTelephone: 2827 8111 Facsimile: 2827 0622\nWebsite: http://www.sunsuninsurance.com.hk\nE-Mail: shk@skp.com.hk\n\nCLAIM FORM 賠償申請表格\n\n甲項\nSECTION A\n投保人資料\nINSURED'S INFORMATION\n\n(一) 姓名\n\n(1) Name:\n\n(二) 聯絡地址\n\n(2) Correspondence\nAddress:\n\n(三) 住宅電話\n\n(3) Home Tel.\n辦事處電話\nOffice Tel.\n電子郵件\nE-mail Address\n\n(四) 保單號碼\n\n(4) Policy No.:\n\nFor Office Use Only 公司專用\nDate Submitted\n\nType of Policy :\n\n(a) Householder\n\n(b) Houseowner\n\nClaim Number :\n\n乙項\nSECTION B\n索償資料\nCLAIM INFORMATION\n\n(一) 意外或損失發生日期\n\n(1) Date of accident or loss\n\n時間\n\nTime\n\n地點\n\nPlace\n\n(二) 請詳述意外或損失發生的情形\n\n(2) State the circumstances of the loss or damage with full particulars\n\n(三) 如遇盜竊，請詳述發生經過的情形(竊匿從何處進入屋內)？\n\n(3) In the case of Theft, please give full details showing how access to the property was effected\n\n(四) 要求賠償數目\n\n(4) Amount claimed (for details see overleaf) (詳情請閱前頁)\n\n港幣\n\nHKD\n\n(五) 索償者是否財物之唯一主人？\n\n(5) Is the Claimant the sole owner of the property lost for damaged?\n\n是 Yes\n\n否 No\n\n(六) 是否有其他保險保障該財物？若有，請詳述承保公司，保額及保險種類\n\n(6) Are there any other insurances upon the same property? If yes, please give full particulars.\n\n是 Yes\n\n否 No\n\n(七) 以前曾否遭遇同樣性質的損失？若有，請詳述之\n\n(7) Has the claimant sustained other losses of the same nature? If yes, please give full particulars.\n\n是 Yes\n\n否 No",
+    "md_content_no_hf": "![](data:image/png;base64,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)\n\nSUN HUNG KAI PROPERTIES INSURANCE LTD\n\n新鴻基地產保險有限公司\n\nRm2309-16 Sun Hung Kai Centre,\n30 Harbour Road, Wan Chai, Hong Kong\nTelephone: 2827 8111 Facsimile: 2827 0622\nWebsite: http://www.sunsuninsurance.com.hk\nE-Mail: shk@skp.com.hk\n\nCLAIM FORM 賠償申請表格\n\n甲項\nSECTION A\n投保人資料\nINSURED'S INFORMATION\n\n(一) 姓名\n\n(1) Name:\n\n(二) 聯絡地址\n\n(2) Correspondence\nAddress:\n\n(三) 住宅電話\n\n(3) Home Tel.\n辦事處電話\nOffice Tel.\n電子郵件\nE-mail Address\n\n(四) 保單號碼\n\n(4) Policy No.:\n\nFor Office Use Only 公司專用\nDate Submitted\n\nType of Policy :\n\n(a) Householder\n\n(b) Houseowner\n\nClaim Number :\n\n乙項\nSECTION B\n索償資料\nCLAIM INFORMATION\n\n(一) 意外或損失發生日期\n\n(1) Date of accident or loss\n\n時間\n\nTime\n\n地點\n\nPlace\n\n(二) 請詳述意外或損失發生的情形\n\n(2) State the circumstances of the loss or damage with full particulars\n\n(三) 如遇盜竊，請詳述發生經過的情形(竊匿從何處進入屋內)？\n\n(3) In the case of Theft, please give full details showing how access to the property was effected\n\n(四) 要求賠償數目\n\n(4) Amount claimed (for details see overleaf) (詳情請閱前頁)\n\n港幣\n\nHKD\n\n(五) 索償者是否財物之唯一主人？\n\n(5) Is the Claimant the sole owner of the property lost for damaged?\n\n是 Yes\n\n否 No\n\n(六) 是否有其他保險保障該財物？若有，請詳述承保公司，保額及保險種類\n\n(6) Are there any other insurances upon the same property? If yes, please give full particulars.\n\n是 Yes\n\n否 No\n\n(七) 以前曾否遭遇同樣性質的損失？若有，請詳述之\n\n(7) Has the claimant sustained other losses of the same nature? If yes, please give full particulars.\n\n是 Yes\n\n否 No",
+    "file_path": "/home/anhtdn/Workspace/warm_up/ocr-engine/app/samples/1_2.png"
+  }
+]

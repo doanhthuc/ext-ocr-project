@@ -1,11 +1,21 @@
+import type { OcrCell } from '~/ocr/types/ocr-result.type';
+
 import { IconArrowLeft01Sharp } from '~icons';
+
+import { BoundingBoxOverlay } from './BoundingBoxOverlay';
 
 type ImageCarouselProps = {
   alt: string;
   currentIndex: number;
   images: Array<string>;
+  ocrData?: Array<{
+    cells: Array<OcrCell>;
+    imageHeight: number;
+    imageWidth: number;
+  }>;
   onNext: () => void;
   onPrevious: () => void;
+  showBoundingBoxes?: boolean;
   showNavigation?: boolean;
 };
 
@@ -13,10 +23,13 @@ export function ImageCarousel({
   alt,
   currentIndex,
   images,
+  ocrData,
   onNext,
   onPrevious,
+  showBoundingBoxes = true,
   showNavigation = true,
 }: ImageCarouselProps) {
+  const currentOcrData = ocrData?.[currentIndex];
   return (
     <div className="relative flex-1 rounded-xl overflow-hidden bg-bg-tertiary">
       <img
@@ -24,6 +37,16 @@ export function ImageCarousel({
         alt={`${alt} - Image ${currentIndex + 1}`}
         className="w-full h-full object-contain"
       />
+
+      {/* Bounding box overlay */}
+      {currentOcrData && (
+        <BoundingBoxOverlay
+          cells={currentOcrData.cells}
+          imageWidth={currentOcrData.imageWidth}
+          imageHeight={currentOcrData.imageHeight}
+          showBoxes={showBoundingBoxes}
+        />
+      )}
 
       {/* Navigation arrows */}
       {showNavigation && images.length > 1 && (

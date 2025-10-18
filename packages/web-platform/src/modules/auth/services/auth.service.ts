@@ -41,7 +41,7 @@ const generateFakeRefreshToken = (userId: string) => {
 export async function getAuthRedirectUrl(provider: AuthProvider) {
   await delay(500);
   return {
-    url: `https://fake-auth-provider.com/${provider}?redirect=http://localhost:3000`,
+    url: `https://fake-auth-provider.com/${provider}?redirect=http://localhost:3001`,
   };
 }
 

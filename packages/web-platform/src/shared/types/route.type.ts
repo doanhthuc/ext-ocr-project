@@ -1,3 +1,3 @@
-import { FileRoutesByPath } from '@tanstack/react-router';
+import type { FileRouteTypes } from '@tanstack/react-router';
 
-export type Path = FileRoutesByPath[keyof FileRoutesByPath]['path'];
+export type Path = FileRouteTypes['to'];
