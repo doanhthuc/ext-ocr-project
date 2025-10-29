@@ -15,6 +15,7 @@ export * from './NotFound';
 export * from './OcrEmptyState';
 export * from './plan-selection';
 export * from './progress/ProgressBar';
+export * from './ReadOnlyKeyValueFieldList';
 export * from './SaveAsTemplateModal';
 export * from './Spinner';
 export * from './TemplateCard';

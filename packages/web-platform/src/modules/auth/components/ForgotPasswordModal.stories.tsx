@@ -16,7 +16,11 @@ const meta: Meta<typeof ForgotPasswordModal> = {
 export default meta;
 type Story = StoryObj<typeof ForgotPasswordModal>;
 
-function ForgotPasswordModalWrapper({ loading = false }: { loading?: boolean }) {
+function ForgotPasswordModalWrapper({
+  loading = false,
+}: {
+  loading?: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleConfirm = (email: string) => {

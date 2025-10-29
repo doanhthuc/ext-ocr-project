@@ -15,12 +15,14 @@ export function ForgotPasswordFlow({ onTriggerOpen }: ForgotPasswordFlowProps) {
     email,
     isLoading,
     isOpen,
+    otpError,
     openForgotPassword,
     closeForgotPassword,
     handleSendOtp,
     handleVerifyOtp,
     handleResendOtp,
     handleResetPassword,
+    clearOtpError,
   } = useForgotPassword();
 
   // Expose the open function to parent component
@@ -45,6 +47,8 @@ export function ForgotPasswordFlow({ onTriggerOpen }: ForgotPasswordFlowProps) {
           email={email}
           loading={isLoading}
           onResend={handleResendOtp}
+          error={otpError}
+          onErrorClear={clearOtpError}
         />
       )}
 

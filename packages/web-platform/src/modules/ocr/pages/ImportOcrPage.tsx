@@ -1,4 +1,4 @@
-import { useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { Breadcrumb } from 'antd';
 import { useState } from 'react';
 
@@ -110,7 +110,7 @@ export function ImportOcrPage() {
         className="mb-6"
         items={[
           {
-            title: 'OCR',
+            title: <Link to="/ocr">OCR</Link>,
           },
           {
             title: 'Import Picture',

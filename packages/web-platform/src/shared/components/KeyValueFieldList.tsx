@@ -77,17 +77,15 @@ export function KeyValueFieldList<
     null
   );
 
-  // Use react-hook-form's useFieldArray if control is provided
-  const fieldArray = control
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks
-      useFieldArray({
-        control,
-        name: fieldsName as never,
-      })
-    : null;
+  // Use react-hook-form's useFieldArray - always call the hook to follow rules of hooks
+  // When control is not provided, we'll just not use the result
+  const fieldArray = useFieldArray({
+    control: control as never,
+    name: fieldsName as never,
+  });
 
   // Determine which fields to use (react-hook-form or prop-based)
-  const fields = fieldArray?.fields ?? propFields;
+  const fields = control ? fieldArray.fields : propFields;
 
   const handleOpenCreateModal = () => {
     setModalMode('create');
@@ -114,7 +112,7 @@ export function KeyValueFieldList<
 
   const handleConfirmModal = (labelName: string) => {
     if (modalMode === 'create') {
-      if (fieldArray) {
+      if (control) {
         // React Hook Form approach
         const newId = `field-${Date.now()}`;
         fieldArray.append({ id: newId, label: labelName, value: '' } as never);
@@ -123,7 +121,7 @@ export function KeyValueFieldList<
         onAddField?.(labelName);
       }
     } else if (modalMode === 'edit' && editingFieldIndex !== null) {
-      if (fieldArray) {
+      if (control) {
         // React Hook Form approach
         const field = fields[editingFieldIndex] as FieldData;
         fieldArray.update(editingFieldIndex, {
@@ -151,7 +149,7 @@ export function KeyValueFieldList<
 
   const handleConfirmDelete = () => {
     if (deletingFieldIndex !== null) {
-      if (fieldArray) {
+      if (control) {
         // React Hook Form approach
         fieldArray.remove(deletingFieldIndex);
       } else {

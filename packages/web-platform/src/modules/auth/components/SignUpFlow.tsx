@@ -17,6 +17,7 @@ export function SignUpFlow({ onTriggerOpen }: SignUpFlowProps) {
     handleSignUp,
     handleVerifyOtp,
     handleResendOtp,
+    clearOtpError,
   } = useSignUp();
 
   // Expose the open function to parent component
@@ -42,6 +43,7 @@ export function SignUpFlow({ onTriggerOpen }: SignUpFlowProps) {
           loading={isLoading}
           onResend={handleResendOtp}
           error={otpError}
+          onErrorClear={clearOtpError}
         />
       )}
     </>

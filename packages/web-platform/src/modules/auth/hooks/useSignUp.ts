@@ -1,4 +1,17 @@
+/**
+ * Sign Up Hook
+ * Manages sign up flow with OTP verification
+ */
+
+import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
+
+import type { SignUpDto } from '~/auth/types';
+import type { ApiError } from '~shared/api/client/api-client';
+
+import { useNotification } from '~shared/hooks/useNotification';
+
+import { useSignUpMutation, useVerifyOtpMutation } from './useAuthMutations';
 
 type SignUpStep = 'form' | 'otp';
 
@@ -10,23 +23,32 @@ type UseSignUpReturn = {
   otpError: string | undefined;
   openSignUp: () => void;
   closeSignUp: () => void;
-  handleSignUp: (data: { email: string; password: string }) => Promise<void>;
+  handleSignUp: (data: SignUpDto) => Promise<void>;
   handleVerifyOtp: (otp: string) => Promise<void>;
   handleResendOtp: () => Promise<void>;
   clearOtpError: () => void;
 };
 
 export function useSignUp(): UseSignUpReturn {
+  const navigate = useNavigate();
+  const { showError, showSuccess } = useNotification();
+
   const [currentStep, setCurrentStep] = useState<SignUpStep>('form');
   const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [userId, setUserId] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [otpError, setOtpError] = useState<string>();
+
+  const signUpMutation = useSignUpMutation();
+  const verifyOtpMutation = useVerifyOtpMutation();
+
+  const isLoading = signUpMutation.isPending || verifyOtpMutation.isPending;
 
   const openSignUp = () => {
     setIsOpen(true);
     setCurrentStep('form');
     setEmail('');
+    setUserId('');
     setOtpError(undefined);
   };
 
@@ -34,6 +56,7 @@ export function useSignUp(): UseSignUpReturn {
     setIsOpen(false);
     setCurrentStep('form');
     setEmail('');
+    setUserId('');
     setOtpError(undefined);
   };
 
@@ -41,61 +64,65 @@ export function useSignUp(): UseSignUpReturn {
     setOtpError(undefined);
   };
 
-  const handleSignUp = async (data: { email: string; password: string }) => {
-    setIsLoading(true);
+  const handleSignUp = async (data: SignUpDto) => {
     try {
-      // TODO: Call API to create account and send OTP
-      console.log('Creating account with:', data);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      const response = await signUpMutation.mutateAsync(data);
 
       setEmail(data.email);
+      setUserId(response.userId);
       setCurrentStep('otp');
       setOtpError(undefined);
+
+      showSuccess('Account created! Please verify your email.');
     } catch (error) {
       console.error('Failed to create account:', error);
+      const apiError = error as ApiError;
+      showError(apiError.message);
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const handleVerifyOtp = async (otp: string) => {
-    setIsLoading(true);
     setOtpError(undefined);
-    try {
-      // TODO: Call API to verify OTP and complete sign up
-      console.log('Verifying sign-up OTP:', otp);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
 
-      // Simulate OTP verification error for demo
-      // In production, this would come from the API response
-      const isValid = otp === '1234'; // Demo: only accept '1234'
-      if (!isValid) {
-        setOtpError('Incorrect OTP. Please try again.');
-        return;
-      }
+    if (!userId) {
+      setOtpError('User ID not found. Please try signing up again.');
+      showError('User ID not found. Please try signing up again.');
+      return;
+    }
+
+    try {
+      await verifyOtpMutation.mutateAsync({
+        userId,
+        otpCode: otp,
+      });
 
       closeSignUp();
-      // Show success notification and redirect to dashboard
-      console.log('Sign up successful!');
+      showSuccess('Email verified successfully! You can now sign in.');
+
+      // Redirect to sign in page
+      navigate({ to: '/sign-in' });
     } catch (error) {
       console.error('Failed to verify OTP:', error);
-      setOtpError('Incorrect OTP. Please try again.');
-      throw error;
-    } finally {
-      setIsLoading(false);
+      const apiError = error as ApiError;
+      setOtpError(apiError.message || 'Incorrect OTP. Please try again.');
+      showError(apiError.message || 'Failed to verify OTP. Please try again.');
     }
   };
 
   const handleResendOtp = async () => {
     setOtpError(undefined);
     try {
-      // TODO: Call API to resend OTP
-      console.log('Resending sign-up OTP to:', email);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      // TODO: Implement dedicated resend OTP endpoint in the backend
+      // For now, we'll show a success message
+      // In production, this should call a dedicated API endpoint like:
+      // await authApiService.resendOtp({ userId, email });
+
+      showSuccess('OTP resent to your email');
     } catch (error) {
       console.error('Failed to resend OTP:', error);
-      throw error;
+      const apiError = error as ApiError;
+      showError(apiError.message || 'Failed to resend OTP. Please try again.');
     }
   };
 

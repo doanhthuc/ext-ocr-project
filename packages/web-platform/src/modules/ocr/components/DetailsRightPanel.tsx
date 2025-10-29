@@ -3,19 +3,22 @@ import type { Control, FieldValues } from 'react-hook-form';
 import { Button, Tabs } from 'antd';
 import { useState } from 'react';
 
+import type { OcrCell } from '~/ocr/types/ocr-result.type';
 import type { FieldData } from '~shared/components/KeyValueFieldList';
 import type { KeyValueFieldListFormData } from '~shared/schemas';
 
+import { useOcrDetailsStore } from '~/ocr/stores/ocr-details.store';
 import { KeyValueFieldList, SaveAsTemplateModal } from '~shared/components';
+
+import { OcrSelectableDisplay } from './OcrSelectableDisplay';
 
 type DetailsRightPanelProps<
   TFieldValues extends FieldValues = KeyValueFieldListFormData,
 > = {
-  activeTab: string;
   fields: Array<FieldData>;
+  ocrCells?: Array<OcrCell>;
   onSave: () => void;
   onSaveAsTemplate?: (templateName: string) => void;
-  onTabChange: (key: string) => void;
   onTemplateChange?: (template: string) => void;
   selectedTemplate?: string;
   templates?: Array<{ label: string; value: string }>;
@@ -31,8 +34,8 @@ type DetailsRightPanelProps<
 export function DetailsRightPanel<
   TFieldValues extends FieldValues = KeyValueFieldListFormData,
 >({
-  activeTab,
   fields,
+  ocrCells: propOcrCells,
   control,
   onAddField,
   onDeleteField,
@@ -40,18 +43,26 @@ export function DetailsRightPanel<
   onFieldChange,
   onSave,
   onSaveAsTemplate,
-  onTabChange,
   onTemplateChange,
   selectedTemplate,
   templates,
 }: DetailsRightPanelProps<TFieldValues>) {
   const [isSaveAsTemplateModalOpen, setIsSaveAsTemplateModalOpen] =
     useState(false);
+  const { activeTab, ocrResults, selectedImageIndex, setActiveTab } =
+    useOcrDetailsStore();
 
   const handleSaveAsTemplate = (templateName: string) => {
     onSaveAsTemplate?.(templateName);
     setIsSaveAsTemplateModalOpen(false);
   };
+
+  // Determine which OCR cells to display
+  // Priority: ocrResults[selectedImageIndex] > propOcrCells
+  const currentPage = ocrResults?.[selectedImageIndex];
+  const ocrCells = currentPage?.cells ?? propOcrCells;
+  const imageHeight = currentPage?.input_height ?? 1008;
+  const imageWidth = currentPage?.input_width ?? 756;
 
   return (
     <div className="bg-white rounded-xl flex flex-col h-full overflow-hidden">
@@ -59,7 +70,7 @@ export function DetailsRightPanel<
       <div className="shrink-0 px-4">
         <Tabs
           activeKey={activeTab}
-          onChange={onTabChange}
+          onChange={setActiveTab}
           className="mb-0 [&_.ant-tabs-nav]:mb-0"
           items={[
             {
@@ -92,8 +103,18 @@ export function DetailsRightPanel<
           />
         )}
         {activeTab === 'ocr' && (
-          <div className="flex-1 flex items-center justify-center">
-            <p className="text-text-placeholder">OCR content coming soon</p>
+          <div className="flex-1 overflow-hidden">
+            {ocrCells && ocrCells.length > 0 ? (
+              <OcrSelectableDisplay
+                cells={ocrCells}
+                imageHeight={imageHeight}
+                imageWidth={imageWidth}
+              />
+            ) : (
+              <div className="flex-1 flex items-center justify-center">
+                <p className="text-text-placeholder">No OCR data available</p>
+              </div>
+            )}
           </div>
         )}
       </div>

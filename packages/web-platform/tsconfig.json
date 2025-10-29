@@ -26,7 +26,6 @@
       "~router": ["./src/router"],
       "~shared/*": ["./src/shared/*"],
       "~config/*": ["./src/configs/*"],
-      "~api/*": ["./src/api/*"],
       "~styles/*": ["./src/styles/*"],
       "~plugins/*": ["./plugins/*"],
       "~/*": ["./src/modules/*", "./src/*"]

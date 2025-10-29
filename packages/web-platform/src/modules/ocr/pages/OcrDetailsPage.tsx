@@ -1,11 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { Breadcrumb } from 'antd';
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { DetailsLeftPanel } from '~/ocr/components/DetailsLeftPanel';
 import { DetailsRightPanel } from '~/ocr/components/DetailsRightPanel';
+import { useOcrDetailsStore } from '~/ocr/stores/ocr-details.store';
+import { mockOcrResults } from '~shared/mock';
 import {
   keyValueFieldListSchema,
   type KeyValueFieldListFormData,
@@ -13,7 +15,12 @@ import {
 
 export function OcrDetailsPage() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('key-value-pairs');
+  const { setOcrResults } = useOcrDetailsStore();
+
+  // Initialize OCR results in the store
+  useEffect(() => {
+    setOcrResults(mockOcrResults);
+  }, [setOcrResults]);
 
   // Initialize React Hook Form with Zod validation
   const { control, handleSubmit, watch, setValue } =
@@ -72,7 +79,7 @@ export function OcrDetailsPage() {
         className="mb-6"
         items={[
           {
-            title: 'OCR',
+            title: <Link to="/ocr">OCR</Link>,
           },
           {
             title: 'Details',
@@ -82,12 +89,15 @@ export function OcrDetailsPage() {
 
       <div className="grid grid-cols-[440px_1fr] gap-6 h-[calc(100vh-120px)]">
         {/* Left Panel */}
-        <DetailsLeftPanel fileName="bill-01.png" onBack={handleBack} />
+        <DetailsLeftPanel
+          fileName="bill-01.png"
+          onBack={handleBack}
+          useMockData={true}
+          showBoundingBoxes={true}
+        />
 
         {/* Right Panel */}
         <DetailsRightPanel
-          activeTab={activeTab}
-          onTabChange={setActiveTab}
           control={control}
           fields={fields}
           selectedTemplate={selectedTemplate}

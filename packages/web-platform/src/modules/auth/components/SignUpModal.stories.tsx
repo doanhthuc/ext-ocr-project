@@ -55,7 +55,8 @@ export const LoadingState: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Sign-up modal showing loading state while creating the account.',
+        story:
+          'Sign-up modal showing loading state while creating the account.',
       },
     },
   },

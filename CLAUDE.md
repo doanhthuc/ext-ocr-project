@@ -11,7 +11,7 @@ OCR Platform is a monorepo for an Optical Character Recognition web application 
 ### Development
 
 ```bash
-yarn dev                    # Start web platform dev server (port 3000)
+yarn dev                    # Start web platform dev server (port 3001)
 yarn build                  # Build shared package, then web platform
 yarn build:shared           # Build shared package only (required before first dev run)
 yarn build:web              # Build web platform only

@@ -1,35 +1,65 @@
-import { useState } from 'react';
+import type { OcrCell } from '~/ocr/types/ocr-result.type';
 
 import mockBillImage from '~/assets/images/template-bill-restaurant-21c4bc.png';
-import { ImageCarousel } from '~/ocr/components/ImageCarousel';
-import { ThumbnailList } from '~/ocr/components/ThumbnailList';
+import { useOcrDetailsStore } from '~/ocr/stores/ocr-details.store';
 import { IconArrowLeft01Sharp } from '~icons';
+import { mockImages, mockOcrResults } from '~shared/mock';
+
+import { ImageCarousel } from './ImageCarousel';
+import { ThumbnailList } from './ThumbnailList';
 
 type DetailsLeftPanelProps = {
   fileName?: string;
   images?: Array<string>;
+  ocrData?: Array<{
+    cells: Array<OcrCell>;
+    imageHeight: number;
+    imageWidth: number;
+  }>;
   onBack?: () => void;
+  showBoundingBoxes?: boolean;
+  useMockData?: boolean;
 };
 
 export function DetailsLeftPanel({
   fileName = 'bill-01.png',
-  images = [
-    mockBillImage,
-    mockBillImage,
-    mockBillImage,
-    mockBillImage,
-    mockBillImage,
-  ],
+  images: propImages,
+  ocrData: propOcrData,
   onBack,
+  showBoundingBoxes = false,
+  useMockData = false,
 }: DetailsLeftPanelProps) {
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const { selectedImageIndex, setSelectedImageIndex } = useOcrDetailsStore();
+
+  // Use mock data if requested, otherwise use provided data or default mock bill images
+  const images = useMockData
+    ? mockImages
+    : propImages || [
+        mockBillImage,
+        mockBillImage,
+        mockBillImage,
+        mockBillImage,
+        mockBillImage,
+      ];
+
+  const ocrData = useMockData
+    ? mockOcrResults.map(result => ({
+        cells: result.cells,
+        imageHeight: result.input_height,
+        imageWidth: result.input_width,
+      }))
+    : propOcrData;
 
   const handlePrevious = () => {
-    setSelectedImageIndex(prev => (prev > 0 ? prev - 1 : images.length - 1));
+    const newIndex =
+      selectedImageIndex > 0 ? selectedImageIndex - 1 : images.length - 1;
+    setSelectedImageIndex(newIndex);
   };
 
   const handleNext = () => {
-    setSelectedImageIndex(prev => (prev < images.length - 1 ? prev + 1 : 0));
+    const newIndex =
+      selectedImageIndex < images.length - 1 ? selectedImageIndex + 1 : 0;
+    setSelectedImageIndex(newIndex);
   };
 
   return (
@@ -57,6 +87,8 @@ export function DetailsLeftPanel({
           alt={fileName}
           onPrevious={handlePrevious}
           onNext={handleNext}
+          ocrData={ocrData}
+          showBoundingBoxes={showBoundingBoxes}
         />
 
         {/* Thumbnail list */}

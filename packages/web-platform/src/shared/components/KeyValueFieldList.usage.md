@@ -19,17 +19,18 @@ import { KeyValueFieldList } from '~shared/components';
 ### 2. Initialize React Hook Form
 
 ```typescript
-const { control, handleSubmit, watch, setValue } = useForm<KeyValueFieldListFormData>({
-  resolver: zodResolver(keyValueFieldListSchema),
-  defaultValues: {
-    selectedTemplate: 'Template Bill Restaurant',
-    fields: [
-      { id: '1', label: 'Invoice Number', value: 'INV-001' },
-      { id: '2', label: 'Date', value: '2025-10-14' },
-      { id: '3', label: 'Total Amount', value: '$150.00' },
-    ],
-  },
-});
+const { control, handleSubmit, watch, setValue } =
+  useForm<KeyValueFieldListFormData>({
+    resolver: zodResolver(keyValueFieldListSchema),
+    defaultValues: {
+      selectedTemplate: 'Template Bill Restaurant',
+      fields: [
+        { id: '1', label: 'Invoice Number', value: 'INV-001' },
+        { id: '2', label: 'Date', value: '2025-10-14' },
+        { id: '3', label: 'Total Amount', value: '$150.00' },
+      ],
+    },
+  });
 ```
 
 ### 3. Use the Component
@@ -61,20 +62,24 @@ const onSave = handleSubmit((data) => {
 ## Features
 
 ### ✅ Automatic Form State Management
+
 - No need for manual `useState` for fields
 - React Hook Form handles all field operations (add, edit, delete, value changes)
 
 ### ✅ Built-in Validation
+
 - Zod schema validates field data
 - Validation errors display automatically
 - Field labels and IDs are required by default
 
 ### ✅ Dynamic Field Array Management
+
 - Uses `useFieldArray` internally
 - Add/remove fields seamlessly
 - Edit field labels on the fly
 
 ### ✅ Backward Compatible
+
 - Still works with traditional callback props
 - Existing implementations continue to work
 
@@ -84,41 +89,41 @@ const onSave = handleSubmit((data) => {
 
 #### React Hook Form Mode (Recommended)
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `control` | `Control<TFieldValues>` | Yes* | React Hook Form control object |
-| `fieldsName` | `'fields'` | No | Field name in the form (default: 'fields') |
-| `selectedTemplate` | `string` | No | Currently selected template |
-| `templates` | `Array<{value, label}>` | No | Available template options |
-| `onTemplateChange` | `(template: string) => void` | No | Callback when template changes |
+| Prop               | Type                         | Required | Description                                |
+| ------------------ | ---------------------------- | -------- | ------------------------------------------ |
+| `control`          | `Control<TFieldValues>`      | Yes\*    | React Hook Form control object             |
+| `fieldsName`       | `'fields'`                   | No       | Field name in the form (default: 'fields') |
+| `selectedTemplate` | `string`                     | No       | Currently selected template                |
+| `templates`        | `Array<{value, label}>`      | No       | Available template options                 |
+| `onTemplateChange` | `(template: string) => void` | No       | Callback when template changes             |
 
-*Required when using React Hook Form mode
+\*Required when using React Hook Form mode
 
 #### Traditional Mode (Legacy)
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `fields` | `Array<FieldData>` | Yes | Array of field data |
-| `onAddField` | `(labelName: string) => void` | No | Callback when adding field |
-| `onEditField` | `(id, label) => void` | No | Callback when editing field |
-| `onDeleteField` | `(id) => void` | No | Callback when deleting field |
-| `onFieldChange` | `(id, value) => void` | No | Callback when field value changes |
+| Prop            | Type                          | Required | Description                       |
+| --------------- | ----------------------------- | -------- | --------------------------------- |
+| `fields`        | `Array<FieldData>`            | Yes      | Array of field data               |
+| `onAddField`    | `(labelName: string) => void` | No       | Callback when adding field        |
+| `onEditField`   | `(id, label) => void`         | No       | Callback when editing field       |
+| `onDeleteField` | `(id) => void`                | No       | Callback when deleting field      |
+| `onFieldChange` | `(id, value) => void`         | No       | Callback when field value changes |
 
 ### LabeledInputField Props
 
 #### React Hook Form Mode
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `control` | `Control<TFieldValues>` | Yes* | React Hook Form control object |
-| `name` | `FieldPath<TFieldValues>` | Yes* | Field path in the form |
-| `label` | `string` | Yes | Label text |
-| `placeholder` | `string` | No | Placeholder text (default: '-') |
-| `error` | `string` | No | Custom error message |
-| `onEdit` | `() => void` | No | Callback for edit button |
-| `onDelete` | `() => void` | No | Callback for delete button |
+| Prop          | Type                      | Required | Description                     |
+| ------------- | ------------------------- | -------- | ------------------------------- |
+| `control`     | `Control<TFieldValues>`   | Yes\*    | React Hook Form control object  |
+| `name`        | `FieldPath<TFieldValues>` | Yes\*    | Field path in the form          |
+| `label`       | `string`                  | Yes      | Label text                      |
+| `placeholder` | `string`                  | No       | Placeholder text (default: '-') |
+| `error`       | `string`                  | No       | Custom error message            |
+| `onEdit`      | `() => void`              | No       | Callback for edit button        |
+| `onDelete`    | `() => void`              | No       | Callback for delete button      |
 
-*Required when using React Hook Form mode
+\*Required when using React Hook Form mode
 
 ## Example Implementation
 
@@ -236,6 +241,7 @@ const onSubmit = handleSubmit((data) => {
 ### TypeScript Errors
 
 If you encounter TypeScript errors about generic types, ensure:
+
 1. You're using the correct form data type: `KeyValueFieldListFormData`
 2. The schema is properly imported from `~shared/schemas`
 3. The `control` prop matches the form type
@@ -243,6 +249,7 @@ If you encounter TypeScript errors about generic types, ensure:
 ### Fields Not Updating
 
 If fields don't update:
+
 1. Ensure you're passing the `control` prop
 2. Check that `fieldsName` matches your form structure (default: 'fields')
 3. Use `watch('fields')` to debug form values
@@ -250,6 +257,7 @@ If fields don't update:
 ### Validation Not Working
 
 If validation doesn't work:
+
 1. Verify `zodResolver(keyValueFieldListSchema)` is passed to `useForm`
 2. Check the schema allows the data format you're using
 3. Use React Hook Form DevTools to inspect validation state

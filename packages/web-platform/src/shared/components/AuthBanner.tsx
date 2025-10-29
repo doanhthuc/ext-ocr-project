@@ -28,7 +28,11 @@ export function AuthBanner() {
   return (
     <div className="h-[calc(100vh-80px)] flex items-center justify-center">
       <div className="rounded-xl overflow-hidden max-h-full w-fit relative">
-        <img src={BG_AUTH} className="w-fit object-contain h-full"  alt='auth-banner-background'/>
+        <img
+          src={BG_AUTH}
+          className="w-fit object-contain h-full"
+          alt="auth-banner-background"
+        />
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
