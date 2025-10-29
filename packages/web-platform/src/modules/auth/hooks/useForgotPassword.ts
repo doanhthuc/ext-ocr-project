@@ -1,4 +1,14 @@
+import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
+
+import type { ApiError } from '~shared/api/client/api-client';
+
+import { useNotification } from '~shared/hooks/useNotification';
+
+import {
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
+} from './useAuthMutations';
 
 type ForgotPasswordStep = 'initial' | 'otp' | 'reset';
 
@@ -7,91 +17,116 @@ type UseForgotPasswordReturn = {
   email: string;
   isLoading: boolean;
   isOpen: boolean;
+  otpError: string | undefined;
   openForgotPassword: () => void;
   closeForgotPassword: () => void;
   handleSendOtp: (submittedEmail: string) => Promise<void>;
   handleVerifyOtp: (otp: string) => Promise<void>;
   handleResendOtp: () => Promise<void>;
   handleResetPassword: (password: string) => Promise<void>;
+  clearOtpError: () => void;
 };
 
 export function useForgotPassword(): UseForgotPasswordReturn {
+  const navigate = useNavigate();
+  const { showError, showSuccess } = useNotification();
+
   const [currentStep, setCurrentStep] = useState<ForgotPasswordStep>('initial');
   const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [resetToken, setResetToken] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [otpError, setOtpError] = useState<string>();
+
+  const forgotPasswordMutation = useForgotPasswordMutation();
+  const resetPasswordMutation = useResetPasswordMutation();
+
+  const isLoading =
+    forgotPasswordMutation.isPending || resetPasswordMutation.isPending;
 
   const openForgotPassword = () => {
     setIsOpen(true);
     setCurrentStep('initial');
     setEmail('');
+    setResetToken('');
+    setOtpError(undefined);
   };
 
   const closeForgotPassword = () => {
     setIsOpen(false);
     setCurrentStep('initial');
     setEmail('');
+    setResetToken('');
+    setOtpError(undefined);
+  };
+
+  const clearOtpError = () => {
+    setOtpError(undefined);
   };
 
   const handleSendOtp = async (submittedEmail: string) => {
-    setIsLoading(true);
     try {
-      // TODO: Call API to send OTP to email
-      console.log('Sending OTP to:', submittedEmail);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      const response = await forgotPasswordMutation.mutateAsync({
+        email: submittedEmail,
+      });
 
       setEmail(submittedEmail);
       setCurrentStep('otp');
+
+      showSuccess(
+        response.message || 'If the email exists, a reset link has been sent.'
+      );
     } catch (error) {
       console.error('Failed to send OTP:', error);
+      const apiError = error as ApiError;
+      showError(apiError.message);
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const handleVerifyOtp = async (otp: string) => {
-    setIsLoading(true);
+    setOtpError(undefined);
     try {
-      // TODO: Call API to verify OTP
-      console.log('Verifying OTP:', otp);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
-
+      // Store the OTP as reset token for the next step
+      setResetToken(otp);
       setCurrentStep('reset');
+      showSuccess('OTP verified successfully');
     } catch (error) {
       console.error('Failed to verify OTP:', error);
-      throw error;
-    } finally {
-      setIsLoading(false);
+      const apiError = error as ApiError;
+      setOtpError(apiError.message || 'Incorrect OTP. Please try again.');
+      showError(apiError.message || 'Failed to verify OTP. Please try again.');
     }
   };
 
   const handleResendOtp = async () => {
+    setOtpError(undefined);
     try {
-      // TODO: Call API to resend OTP
-      console.log('Resending OTP to:', email);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      const response = await forgotPasswordMutation.mutateAsync({ email });
+      showSuccess(response.message || 'OTP resent to your email');
     } catch (error) {
       console.error('Failed to resend OTP:', error);
-      throw error;
+      const apiError = error as ApiError;
+      showError(apiError.message || 'Failed to resend OTP. Please try again.');
     }
   };
 
-  const handleResetPassword = async (_password: string) => {
-    setIsLoading(true);
+  const handleResetPassword = async (password: string) => {
     try {
-      // TODO: Call API to reset password
-      console.log('Resetting password for:', email);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      const response = await resetPasswordMutation.mutateAsync({
+        token: resetToken,
+        password,
+      });
 
       closeForgotPassword();
-      // Show success notification
-      console.log('Password reset successful!');
+      showSuccess(response.message || 'Password reset successfully');
+
+      // Redirect to sign in page
+      navigate({ to: '/sign-in' });
     } catch (error) {
       console.error('Failed to reset password:', error);
+      const apiError = error as ApiError;
+      showError(apiError.message);
       throw error;
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -100,11 +135,13 @@ export function useForgotPassword(): UseForgotPasswordReturn {
     email,
     isLoading,
     isOpen,
+    otpError,
     openForgotPassword,
     closeForgotPassword,
     handleSendOtp,
     handleVerifyOtp,
     handleResendOtp,
     handleResetPassword,
+    clearOtpError,
   };
 }

@@ -10,12 +10,14 @@ import { cn } from '~shared/utils/cn.util';
 
 const { Text, Title } = Typography;
 
-// Zod schema for OTP validation
+// Zod schema for OTP validation (6 digits)
 const otpSchema = z.object({
   digit1: z.string().regex(/^\d$/, 'Must be a single digit'),
   digit2: z.string().regex(/^\d$/, 'Must be a single digit'),
   digit3: z.string().regex(/^\d$/, 'Must be a single digit'),
   digit4: z.string().regex(/^\d$/, 'Must be a single digit'),
+  digit5: z.string().regex(/^\d$/, 'Must be a single digit'),
+  digit6: z.string().regex(/^\d$/, 'Must be a single digit'),
 });
 
 type OtpFormData = z.infer<typeof otpSchema>;
@@ -35,6 +37,8 @@ export type OtpVerificationModalProps = {
   onResend?: () => void;
   /** Error message to display */
   error?: string;
+  /** Callback when error should be cleared */
+  onErrorClear?: () => void;
 };
 
 export function OtpVerificationModal({
@@ -45,6 +49,7 @@ export function OtpVerificationModal({
   loading = false,
   onResend,
   error,
+  onErrorClear,
 }: OtpVerificationModalProps) {
   const { t } = useTranslation();
   const inputRefs = useRef<Array<HTMLInputElement>>([]);
@@ -64,6 +69,8 @@ export function OtpVerificationModal({
       digit2: '',
       digit3: '',
       digit4: '',
+      digit5: '',
+      digit6: '',
     },
   });
 
@@ -85,12 +92,17 @@ export function OtpVerificationModal({
     value: string,
     onChange: (value: string) => void
   ) => {
+    // Clear error when user starts typing
+    if (error && onErrorClear) {
+      onErrorClear();
+    }
+
     // Only allow digits
     const digit = value.replace(/\D/g, '').slice(-1);
     onChange(digit);
 
-    // Auto-focus next input
-    if (digit && index < 3) {
+    // Auto-focus next input (6 digits total, so index < 5)
+    if (digit && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
   };
@@ -110,23 +122,25 @@ export function OtpVerificationModal({
     const pastedData = e.clipboardData
       .getData('text')
       .replace(/\D/g, '')
-      .slice(0, 4);
+      .slice(0, 6);
 
     if (pastedData.length > 0) {
       setValue('digit1', pastedData[0] || '');
       setValue('digit2', pastedData[1] || '');
       setValue('digit3', pastedData[2] || '');
       setValue('digit4', pastedData[3] || '');
+      setValue('digit5', pastedData[4] || '');
+      setValue('digit6', pastedData[5] || '');
 
       // Focus the next empty input or the last one
-      const focusIndex = Math.min(pastedData.length, 3);
+      const focusIndex = Math.min(pastedData.length, 5);
       inputRefs.current[focusIndex]?.focus();
     }
   };
 
   const onSubmit = (data: OtpFormData) => {
     if (!loading) {
-      const otpValue = `${data.digit1}${data.digit2}${data.digit3}${data.digit4}`;
+      const otpValue = `${data.digit1}${data.digit2}${data.digit3}${data.digit4}${data.digit5}${data.digit6}`;
       onConfirm(otpValue);
     }
   };
@@ -190,37 +204,44 @@ export function OtpVerificationModal({
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="flex w-full flex-col gap-2">
             <div className="flex gap-3 justify-center">
-              {(['digit1', 'digit2', 'digit3', 'digit4'] as const).map(
-                (fieldName, index) => (
-                  <Controller
-                    key={fieldName}
-                    name={fieldName}
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        {...field}
-                        ref={el => {
-                          if (el?.input) {
-                            inputRefs.current[index] = el.input;
-                          }
-                        }}
-                        onChange={e =>
-                          handleChange(index, e.target.value, field.onChange)
+              {(
+                [
+                  'digit1',
+                  'digit2',
+                  'digit3',
+                  'digit4',
+                  'digit5',
+                  'digit6',
+                ] as const
+              ).map((fieldName, index) => (
+                <Controller
+                  key={fieldName}
+                  name={fieldName}
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      ref={el => {
+                        if (el?.input) {
+                          inputRefs.current[index] = el.input;
                         }
-                        onKeyDown={e => handleKeyDown(index, e)}
-                        onPaste={handlePaste}
-                        maxLength={1}
-                        disabled={loading}
-                        status={error ? 'error' : undefined}
-                        className={cn(
-                          'size-14 rounded-xl border-gray-12 text-center text-2xl font-semibold',
-                          field.value && !error && 'border-blue-4'
-                        )}
-                      />
-                    )}
-                  />
-                )
-              )}
+                      }}
+                      onChange={e =>
+                        handleChange(index, e.target.value, field.onChange)
+                      }
+                      onKeyDown={e => handleKeyDown(index, e)}
+                      onPaste={handlePaste}
+                      maxLength={1}
+                      disabled={loading}
+                      status={error ? 'error' : undefined}
+                      className={cn(
+                        'size-14 rounded-xl border-gray-12 text-center text-2xl font-semibold',
+                        field.value && !error && 'border-blue-4'
+                      )}
+                    />
+                  )}
+                />
+              ))}
             </div>
             {error && (
               <Text className="text-center text-sm leading-5 text-error">

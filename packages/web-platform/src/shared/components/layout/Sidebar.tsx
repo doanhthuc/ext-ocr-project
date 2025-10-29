@@ -4,7 +4,7 @@ import { SignOut } from '@phosphor-icons/react';
 import { useLocation, useNavigate } from '@tanstack/react-router';
 import { Avatar, Button, Layout, Menu, Popover } from 'antd';
 
-import { IconDashboard, IconScan } from '~/assets/icons';
+import { IconDashboard, IconScan, IconTranslate } from '~/assets/icons';
 import { useAuth } from '~/auth/hooks/useAuth';
 import { useTranslation } from '~shared/hooks/useTranslation';
 import { Path } from '~shared/types/route.type';
@@ -46,11 +46,11 @@ export function Sidebar() {
 
   const NAV_ITEMS: Array<NavItem> = [
     { path: '/ocr', icon: IconScan, labelKey: 'navigation.ocr' },
-    // {
-    //   path: '/translate',
-    //   icon: IconTranslate,
-    //   labelKey: 'navigation.translate',
-    // },
+    {
+      path: '/translate',
+      icon: IconTranslate,
+      labelKey: 'navigation.translate',
+    },
     {
       path: '/dashboard',
       icon: IconDashboard,

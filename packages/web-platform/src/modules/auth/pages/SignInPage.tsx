@@ -1,10 +1,6 @@
 import { useRef } from 'react';
 
-import {
-  ForgotPasswordFlow,
-  SignInForm,
-  SignUpFlow,
-} from '~/auth/components';
+import { ForgotPasswordFlow, SignInForm, SignUpFlow } from '~/auth/components';
 import { AuthBanner } from '~shared/components';
 
 export function SignInPage() {

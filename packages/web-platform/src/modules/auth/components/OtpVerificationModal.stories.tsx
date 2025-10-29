@@ -84,7 +84,8 @@ export const LoadingState: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'OTP verification modal showing loading state while verifying the code.',
+        story:
+          'OTP verification modal showing loading state while verifying the code.',
       },
     },
   },

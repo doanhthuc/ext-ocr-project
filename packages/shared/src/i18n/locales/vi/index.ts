@@ -7,6 +7,7 @@ import { errors } from './errors';
 import { navigation } from './navigation';
 import { ocr } from './ocr';
 import { status } from './status';
+import { translate } from './translate';
 import { upload } from './upload';
 import { validation } from './validation';
 
@@ -22,4 +23,5 @@ export const vi = {
   ...status,
   ...credits,
   ...errorPages,
+  ...translate,
 } as const;

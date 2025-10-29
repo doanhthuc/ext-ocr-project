@@ -56,7 +56,7 @@ export function OcrPage() {
   };
 
   const handleViewMoreRecent = () => {
-    console.log('View more recent clicked');
+    navigate({ to: '/ocr/history' });
   };
 
   return (

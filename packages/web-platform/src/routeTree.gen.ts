@@ -13,13 +13,26 @@ import { Route as PublicRouteImport } from './routes/_public'
 import { Route as PrivateRouteImport } from './routes/_private'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as PrivateIndexRouteImport } from './routes/_private/index'
+import { Route as PrivateTranslateRouteImport } from './routes/_private/translate'
 import { Route as PrivateOcrRouteImport } from './routes/_private/ocr'
 import { Route as PrivateDashboardRouteImport } from './routes/_private/dashboard'
 import { Route as AuthSignInRouteImport } from './routes/_auth/sign-in'
+import { Route as PrivateTranslateIndexRouteImport } from './routes/_private/translate.index'
 import { Route as PrivateOcrIndexRouteImport } from './routes/_private/ocr.index'
 import { Route as Oauth2ProviderCallbackRouteImport } from './routes/oauth2.$provider.callback'
+import { Route as PrivateTranslateImportRouteImport } from './routes/_private/translate.import'
+import { Route as PrivateTranslateHistoryRouteImport } from './routes/_private/translate.history'
 import { Route as PrivateOcrImportRouteImport } from './routes/_private/ocr.import'
+import { Route as PrivateOcrHistoryRouteImport } from './routes/_private/ocr.history'
+import { Route as PrivateOcrEditRouteImport } from './routes/_private/ocr.edit'
 import { Route as PrivateOcrDetailsRouteImport } from './routes/_private/ocr.details'
+import { Route as PrivateTranslateHistoryIndexRouteImport } from './routes/_private/translate.history.index'
+import { Route as PrivateOcrHistoryIndexRouteImport } from './routes/_private/ocr.history.index'
+import { Route as PrivateTranslateHistoryIdRouteImport } from './routes/_private/translate.history.$id'
+import { Route as PrivateTranslateEditIdRouteImport } from './routes/_private/translate.edit.$id'
+import { Route as PrivateTranslateDetailsIdRouteImport } from './routes/_private/translate.details.$id'
+import { Route as PrivateOcrHistoryIdRouteImport } from './routes/_private/ocr.history.$id'
+import { Route as PrivateOcrEditIdRouteImport } from './routes/_private/ocr.edit.$id'
 import { Route as PrivateOcrDetailsIdRouteImport } from './routes/_private/ocr.details.$id'
 
 const PublicRoute = PublicRouteImport.update({
@@ -39,6 +52,11 @@ const PrivateIndexRoute = PrivateIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PrivateRoute,
 } as any)
+const PrivateTranslateRoute = PrivateTranslateRouteImport.update({
+  id: '/translate',
+  path: '/translate',
+  getParentRoute: () => PrivateRoute,
+} as any)
 const PrivateOcrRoute = PrivateOcrRouteImport.update({
   id: '/ocr',
   path: '/ocr',
@@ -54,6 +72,11 @@ const AuthSignInRoute = AuthSignInRouteImport.update({
   path: '/sign-in',
   getParentRoute: () => AuthRoute,
 } as any)
+const PrivateTranslateIndexRoute = PrivateTranslateIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PrivateTranslateRoute,
+} as any)
 const PrivateOcrIndexRoute = PrivateOcrIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -64,15 +87,73 @@ const Oauth2ProviderCallbackRoute = Oauth2ProviderCallbackRouteImport.update({
   path: '/oauth2/$provider/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivateTranslateImportRoute = PrivateTranslateImportRouteImport.update({
+  id: '/import',
+  path: '/import',
+  getParentRoute: () => PrivateTranslateRoute,
+} as any)
+const PrivateTranslateHistoryRoute = PrivateTranslateHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => PrivateTranslateRoute,
+} as any)
 const PrivateOcrImportRoute = PrivateOcrImportRouteImport.update({
   id: '/import',
   path: '/import',
+  getParentRoute: () => PrivateOcrRoute,
+} as any)
+const PrivateOcrHistoryRoute = PrivateOcrHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => PrivateOcrRoute,
+} as any)
+const PrivateOcrEditRoute = PrivateOcrEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
   getParentRoute: () => PrivateOcrRoute,
 } as any)
 const PrivateOcrDetailsRoute = PrivateOcrDetailsRouteImport.update({
   id: '/details',
   path: '/details',
   getParentRoute: () => PrivateOcrRoute,
+} as any)
+const PrivateTranslateHistoryIndexRoute =
+  PrivateTranslateHistoryIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => PrivateTranslateHistoryRoute,
+  } as any)
+const PrivateOcrHistoryIndexRoute = PrivateOcrHistoryIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PrivateOcrHistoryRoute,
+} as any)
+const PrivateTranslateHistoryIdRoute =
+  PrivateTranslateHistoryIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => PrivateTranslateHistoryRoute,
+  } as any)
+const PrivateTranslateEditIdRoute = PrivateTranslateEditIdRouteImport.update({
+  id: '/edit/$id',
+  path: '/edit/$id',
+  getParentRoute: () => PrivateTranslateRoute,
+} as any)
+const PrivateTranslateDetailsIdRoute =
+  PrivateTranslateDetailsIdRouteImport.update({
+    id: '/details/$id',
+    path: '/details/$id',
+    getParentRoute: () => PrivateTranslateRoute,
+  } as any)
+const PrivateOcrHistoryIdRoute = PrivateOcrHistoryIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => PrivateOcrHistoryRoute,
+} as any)
+const PrivateOcrEditIdRoute = PrivateOcrEditIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => PrivateOcrEditRoute,
 } as any)
 const PrivateOcrDetailsIdRoute = PrivateOcrDetailsIdRouteImport.update({
   id: '/$id',
@@ -84,22 +165,45 @@ export interface FileRoutesByFullPath {
   '/sign-in': typeof AuthSignInRoute
   '/dashboard': typeof PrivateDashboardRoute
   '/ocr': typeof PrivateOcrRouteWithChildren
+  '/translate': typeof PrivateTranslateRouteWithChildren
   '/': typeof PrivateIndexRoute
   '/ocr/details': typeof PrivateOcrDetailsRouteWithChildren
+  '/ocr/edit': typeof PrivateOcrEditRouteWithChildren
+  '/ocr/history': typeof PrivateOcrHistoryRouteWithChildren
   '/ocr/import': typeof PrivateOcrImportRoute
+  '/translate/history': typeof PrivateTranslateHistoryRouteWithChildren
+  '/translate/import': typeof PrivateTranslateImportRoute
   '/oauth2/$provider/callback': typeof Oauth2ProviderCallbackRoute
   '/ocr/': typeof PrivateOcrIndexRoute
+  '/translate/': typeof PrivateTranslateIndexRoute
   '/ocr/details/$id': typeof PrivateOcrDetailsIdRoute
+  '/ocr/edit/$id': typeof PrivateOcrEditIdRoute
+  '/ocr/history/$id': typeof PrivateOcrHistoryIdRoute
+  '/translate/details/$id': typeof PrivateTranslateDetailsIdRoute
+  '/translate/edit/$id': typeof PrivateTranslateEditIdRoute
+  '/translate/history/$id': typeof PrivateTranslateHistoryIdRoute
+  '/ocr/history/': typeof PrivateOcrHistoryIndexRoute
+  '/translate/history/': typeof PrivateTranslateHistoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/sign-in': typeof AuthSignInRoute
   '/dashboard': typeof PrivateDashboardRoute
   '/': typeof PrivateIndexRoute
   '/ocr/details': typeof PrivateOcrDetailsRouteWithChildren
+  '/ocr/edit': typeof PrivateOcrEditRouteWithChildren
   '/ocr/import': typeof PrivateOcrImportRoute
+  '/translate/import': typeof PrivateTranslateImportRoute
   '/oauth2/$provider/callback': typeof Oauth2ProviderCallbackRoute
   '/ocr': typeof PrivateOcrIndexRoute
+  '/translate': typeof PrivateTranslateIndexRoute
   '/ocr/details/$id': typeof PrivateOcrDetailsIdRoute
+  '/ocr/edit/$id': typeof PrivateOcrEditIdRoute
+  '/ocr/history/$id': typeof PrivateOcrHistoryIdRoute
+  '/translate/details/$id': typeof PrivateTranslateDetailsIdRoute
+  '/translate/edit/$id': typeof PrivateTranslateEditIdRoute
+  '/translate/history/$id': typeof PrivateTranslateHistoryIdRoute
+  '/ocr/history': typeof PrivateOcrHistoryIndexRoute
+  '/translate/history': typeof PrivateTranslateHistoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -109,12 +213,25 @@ export interface FileRoutesById {
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_private/dashboard': typeof PrivateDashboardRoute
   '/_private/ocr': typeof PrivateOcrRouteWithChildren
+  '/_private/translate': typeof PrivateTranslateRouteWithChildren
   '/_private/': typeof PrivateIndexRoute
   '/_private/ocr/details': typeof PrivateOcrDetailsRouteWithChildren
+  '/_private/ocr/edit': typeof PrivateOcrEditRouteWithChildren
+  '/_private/ocr/history': typeof PrivateOcrHistoryRouteWithChildren
   '/_private/ocr/import': typeof PrivateOcrImportRoute
+  '/_private/translate/history': typeof PrivateTranslateHistoryRouteWithChildren
+  '/_private/translate/import': typeof PrivateTranslateImportRoute
   '/oauth2/$provider/callback': typeof Oauth2ProviderCallbackRoute
   '/_private/ocr/': typeof PrivateOcrIndexRoute
+  '/_private/translate/': typeof PrivateTranslateIndexRoute
   '/_private/ocr/details/$id': typeof PrivateOcrDetailsIdRoute
+  '/_private/ocr/edit/$id': typeof PrivateOcrEditIdRoute
+  '/_private/ocr/history/$id': typeof PrivateOcrHistoryIdRoute
+  '/_private/translate/details/$id': typeof PrivateTranslateDetailsIdRoute
+  '/_private/translate/edit/$id': typeof PrivateTranslateEditIdRoute
+  '/_private/translate/history/$id': typeof PrivateTranslateHistoryIdRoute
+  '/_private/ocr/history/': typeof PrivateOcrHistoryIndexRoute
+  '/_private/translate/history/': typeof PrivateTranslateHistoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -122,22 +239,45 @@ export interface FileRouteTypes {
     | '/sign-in'
     | '/dashboard'
     | '/ocr'
+    | '/translate'
     | '/'
     | '/ocr/details'
+    | '/ocr/edit'
+    | '/ocr/history'
     | '/ocr/import'
+    | '/translate/history'
+    | '/translate/import'
     | '/oauth2/$provider/callback'
     | '/ocr/'
+    | '/translate/'
     | '/ocr/details/$id'
+    | '/ocr/edit/$id'
+    | '/ocr/history/$id'
+    | '/translate/details/$id'
+    | '/translate/edit/$id'
+    | '/translate/history/$id'
+    | '/ocr/history/'
+    | '/translate/history/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/sign-in'
     | '/dashboard'
     | '/'
     | '/ocr/details'
+    | '/ocr/edit'
     | '/ocr/import'
+    | '/translate/import'
     | '/oauth2/$provider/callback'
     | '/ocr'
+    | '/translate'
     | '/ocr/details/$id'
+    | '/ocr/edit/$id'
+    | '/ocr/history/$id'
+    | '/translate/details/$id'
+    | '/translate/edit/$id'
+    | '/translate/history/$id'
+    | '/ocr/history'
+    | '/translate/history'
   id:
     | '__root__'
     | '/_auth'
@@ -146,12 +286,25 @@ export interface FileRouteTypes {
     | '/_auth/sign-in'
     | '/_private/dashboard'
     | '/_private/ocr'
+    | '/_private/translate'
     | '/_private/'
     | '/_private/ocr/details'
+    | '/_private/ocr/edit'
+    | '/_private/ocr/history'
     | '/_private/ocr/import'
+    | '/_private/translate/history'
+    | '/_private/translate/import'
     | '/oauth2/$provider/callback'
     | '/_private/ocr/'
+    | '/_private/translate/'
     | '/_private/ocr/details/$id'
+    | '/_private/ocr/edit/$id'
+    | '/_private/ocr/history/$id'
+    | '/_private/translate/details/$id'
+    | '/_private/translate/edit/$id'
+    | '/_private/translate/history/$id'
+    | '/_private/ocr/history/'
+    | '/_private/translate/history/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -191,6 +344,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateIndexRouteImport
       parentRoute: typeof PrivateRoute
     }
+    '/_private/translate': {
+      id: '/_private/translate'
+      path: '/translate'
+      fullPath: '/translate'
+      preLoaderRoute: typeof PrivateTranslateRouteImport
+      parentRoute: typeof PrivateRoute
+    }
     '/_private/ocr': {
       id: '/_private/ocr'
       path: '/ocr'
@@ -212,6 +372,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignInRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_private/translate/': {
+      id: '/_private/translate/'
+      path: '/'
+      fullPath: '/translate/'
+      preLoaderRoute: typeof PrivateTranslateIndexRouteImport
+      parentRoute: typeof PrivateTranslateRoute
+    }
     '/_private/ocr/': {
       id: '/_private/ocr/'
       path: '/'
@@ -226,11 +393,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Oauth2ProviderCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_private/translate/import': {
+      id: '/_private/translate/import'
+      path: '/import'
+      fullPath: '/translate/import'
+      preLoaderRoute: typeof PrivateTranslateImportRouteImport
+      parentRoute: typeof PrivateTranslateRoute
+    }
+    '/_private/translate/history': {
+      id: '/_private/translate/history'
+      path: '/history'
+      fullPath: '/translate/history'
+      preLoaderRoute: typeof PrivateTranslateHistoryRouteImport
+      parentRoute: typeof PrivateTranslateRoute
+    }
     '/_private/ocr/import': {
       id: '/_private/ocr/import'
       path: '/import'
       fullPath: '/ocr/import'
       preLoaderRoute: typeof PrivateOcrImportRouteImport
+      parentRoute: typeof PrivateOcrRoute
+    }
+    '/_private/ocr/history': {
+      id: '/_private/ocr/history'
+      path: '/history'
+      fullPath: '/ocr/history'
+      preLoaderRoute: typeof PrivateOcrHistoryRouteImport
+      parentRoute: typeof PrivateOcrRoute
+    }
+    '/_private/ocr/edit': {
+      id: '/_private/ocr/edit'
+      path: '/edit'
+      fullPath: '/ocr/edit'
+      preLoaderRoute: typeof PrivateOcrEditRouteImport
       parentRoute: typeof PrivateOcrRoute
     }
     '/_private/ocr/details': {
@@ -239,6 +434,55 @@ declare module '@tanstack/react-router' {
       fullPath: '/ocr/details'
       preLoaderRoute: typeof PrivateOcrDetailsRouteImport
       parentRoute: typeof PrivateOcrRoute
+    }
+    '/_private/translate/history/': {
+      id: '/_private/translate/history/'
+      path: '/'
+      fullPath: '/translate/history/'
+      preLoaderRoute: typeof PrivateTranslateHistoryIndexRouteImport
+      parentRoute: typeof PrivateTranslateHistoryRoute
+    }
+    '/_private/ocr/history/': {
+      id: '/_private/ocr/history/'
+      path: '/'
+      fullPath: '/ocr/history/'
+      preLoaderRoute: typeof PrivateOcrHistoryIndexRouteImport
+      parentRoute: typeof PrivateOcrHistoryRoute
+    }
+    '/_private/translate/history/$id': {
+      id: '/_private/translate/history/$id'
+      path: '/$id'
+      fullPath: '/translate/history/$id'
+      preLoaderRoute: typeof PrivateTranslateHistoryIdRouteImport
+      parentRoute: typeof PrivateTranslateHistoryRoute
+    }
+    '/_private/translate/edit/$id': {
+      id: '/_private/translate/edit/$id'
+      path: '/edit/$id'
+      fullPath: '/translate/edit/$id'
+      preLoaderRoute: typeof PrivateTranslateEditIdRouteImport
+      parentRoute: typeof PrivateTranslateRoute
+    }
+    '/_private/translate/details/$id': {
+      id: '/_private/translate/details/$id'
+      path: '/details/$id'
+      fullPath: '/translate/details/$id'
+      preLoaderRoute: typeof PrivateTranslateDetailsIdRouteImport
+      parentRoute: typeof PrivateTranslateRoute
+    }
+    '/_private/ocr/history/$id': {
+      id: '/_private/ocr/history/$id'
+      path: '/$id'
+      fullPath: '/ocr/history/$id'
+      preLoaderRoute: typeof PrivateOcrHistoryIdRouteImport
+      parentRoute: typeof PrivateOcrHistoryRoute
+    }
+    '/_private/ocr/edit/$id': {
+      id: '/_private/ocr/edit/$id'
+      path: '/$id'
+      fullPath: '/ocr/edit/$id'
+      preLoaderRoute: typeof PrivateOcrEditIdRouteImport
+      parentRoute: typeof PrivateOcrEditRoute
     }
     '/_private/ocr/details/$id': {
       id: '/_private/ocr/details/$id'
@@ -271,14 +515,43 @@ const PrivateOcrDetailsRouteChildren: PrivateOcrDetailsRouteChildren = {
 const PrivateOcrDetailsRouteWithChildren =
   PrivateOcrDetailsRoute._addFileChildren(PrivateOcrDetailsRouteChildren)
 
+interface PrivateOcrEditRouteChildren {
+  PrivateOcrEditIdRoute: typeof PrivateOcrEditIdRoute
+}
+
+const PrivateOcrEditRouteChildren: PrivateOcrEditRouteChildren = {
+  PrivateOcrEditIdRoute: PrivateOcrEditIdRoute,
+}
+
+const PrivateOcrEditRouteWithChildren = PrivateOcrEditRoute._addFileChildren(
+  PrivateOcrEditRouteChildren,
+)
+
+interface PrivateOcrHistoryRouteChildren {
+  PrivateOcrHistoryIdRoute: typeof PrivateOcrHistoryIdRoute
+  PrivateOcrHistoryIndexRoute: typeof PrivateOcrHistoryIndexRoute
+}
+
+const PrivateOcrHistoryRouteChildren: PrivateOcrHistoryRouteChildren = {
+  PrivateOcrHistoryIdRoute: PrivateOcrHistoryIdRoute,
+  PrivateOcrHistoryIndexRoute: PrivateOcrHistoryIndexRoute,
+}
+
+const PrivateOcrHistoryRouteWithChildren =
+  PrivateOcrHistoryRoute._addFileChildren(PrivateOcrHistoryRouteChildren)
+
 interface PrivateOcrRouteChildren {
   PrivateOcrDetailsRoute: typeof PrivateOcrDetailsRouteWithChildren
+  PrivateOcrEditRoute: typeof PrivateOcrEditRouteWithChildren
+  PrivateOcrHistoryRoute: typeof PrivateOcrHistoryRouteWithChildren
   PrivateOcrImportRoute: typeof PrivateOcrImportRoute
   PrivateOcrIndexRoute: typeof PrivateOcrIndexRoute
 }
 
 const PrivateOcrRouteChildren: PrivateOcrRouteChildren = {
   PrivateOcrDetailsRoute: PrivateOcrDetailsRouteWithChildren,
+  PrivateOcrEditRoute: PrivateOcrEditRouteWithChildren,
+  PrivateOcrHistoryRoute: PrivateOcrHistoryRouteWithChildren,
   PrivateOcrImportRoute: PrivateOcrImportRoute,
   PrivateOcrIndexRoute: PrivateOcrIndexRoute,
 }
@@ -287,15 +560,52 @@ const PrivateOcrRouteWithChildren = PrivateOcrRoute._addFileChildren(
   PrivateOcrRouteChildren,
 )
 
+interface PrivateTranslateHistoryRouteChildren {
+  PrivateTranslateHistoryIdRoute: typeof PrivateTranslateHistoryIdRoute
+  PrivateTranslateHistoryIndexRoute: typeof PrivateTranslateHistoryIndexRoute
+}
+
+const PrivateTranslateHistoryRouteChildren: PrivateTranslateHistoryRouteChildren =
+  {
+    PrivateTranslateHistoryIdRoute: PrivateTranslateHistoryIdRoute,
+    PrivateTranslateHistoryIndexRoute: PrivateTranslateHistoryIndexRoute,
+  }
+
+const PrivateTranslateHistoryRouteWithChildren =
+  PrivateTranslateHistoryRoute._addFileChildren(
+    PrivateTranslateHistoryRouteChildren,
+  )
+
+interface PrivateTranslateRouteChildren {
+  PrivateTranslateHistoryRoute: typeof PrivateTranslateHistoryRouteWithChildren
+  PrivateTranslateImportRoute: typeof PrivateTranslateImportRoute
+  PrivateTranslateIndexRoute: typeof PrivateTranslateIndexRoute
+  PrivateTranslateDetailsIdRoute: typeof PrivateTranslateDetailsIdRoute
+  PrivateTranslateEditIdRoute: typeof PrivateTranslateEditIdRoute
+}
+
+const PrivateTranslateRouteChildren: PrivateTranslateRouteChildren = {
+  PrivateTranslateHistoryRoute: PrivateTranslateHistoryRouteWithChildren,
+  PrivateTranslateImportRoute: PrivateTranslateImportRoute,
+  PrivateTranslateIndexRoute: PrivateTranslateIndexRoute,
+  PrivateTranslateDetailsIdRoute: PrivateTranslateDetailsIdRoute,
+  PrivateTranslateEditIdRoute: PrivateTranslateEditIdRoute,
+}
+
+const PrivateTranslateRouteWithChildren =
+  PrivateTranslateRoute._addFileChildren(PrivateTranslateRouteChildren)
+
 interface PrivateRouteChildren {
   PrivateDashboardRoute: typeof PrivateDashboardRoute
   PrivateOcrRoute: typeof PrivateOcrRouteWithChildren
+  PrivateTranslateRoute: typeof PrivateTranslateRouteWithChildren
   PrivateIndexRoute: typeof PrivateIndexRoute
 }
 
 const PrivateRouteChildren: PrivateRouteChildren = {
   PrivateDashboardRoute: PrivateDashboardRoute,
   PrivateOcrRoute: PrivateOcrRouteWithChildren,
+  PrivateTranslateRoute: PrivateTranslateRouteWithChildren,
   PrivateIndexRoute: PrivateIndexRoute,
 }
 

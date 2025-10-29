@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import { Breadcrumb } from 'antd';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -79,7 +79,7 @@ export function OcrDetailsPage() {
         className="mb-6"
         items={[
           {
-            title: 'OCR',
+            title: <Link to="/ocr">OCR</Link>,
           },
           {
             title: 'Details',

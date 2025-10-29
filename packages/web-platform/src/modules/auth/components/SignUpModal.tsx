@@ -12,7 +12,32 @@ const { Text, Title } = Typography;
 
 const signUpSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(1, 'Please enter your password'),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .regex(/[A-Z]/, 'Password must contain at least one uppercase letter')
+    .regex(/[a-z]/, 'Password must contain at least one lowercase letter')
+    .regex(/[0-9]/, 'Password must contain at least one number')
+    .regex(
+      /[^A-Za-z0-9]/,
+      'Password must contain at least one special character'
+    ),
+  firstName: z
+    .string()
+    .min(1, 'Please enter your first name')
+    .max(50, 'First name must not exceed 50 characters')
+    .regex(
+      /^[a-zA-Z\s'-]+$/,
+      'First name can only contain letters, spaces, hyphens, and apostrophes'
+    ),
+  lastName: z
+    .string()
+    .min(1, 'Please enter your last name')
+    .max(50, 'Last name must not exceed 50 characters')
+    .regex(
+      /^[a-zA-Z\s'-]+$/,
+      'Last name can only contain letters, spaces, hyphens, and apostrophes'
+    ),
 });
 
 type SignUpFormData = z.infer<typeof signUpSchema>;
@@ -46,6 +71,8 @@ export function SignUpModal({
     defaultValues: {
       email: '',
       password: '',
+      firstName: '',
+      lastName: '',
     },
   });
 
@@ -100,6 +127,59 @@ export function SignUpModal({
 
         {/* Form */}
         <Form layout="vertical" onFinish={handleSubmit(onSubmit)}>
+          {/* First Name Input */}
+          <Controller
+            name="firstName"
+            control={control}
+            render={({ field }) => (
+              <Form.Item
+                label={
+                  <Text className="text-sm leading-5 text-text-dark">
+                    First Name
+                  </Text>
+                }
+                validateStatus={errors.firstName ? 'error' : ''}
+                help={errors.firstName?.message}
+              >
+                <Input
+                  {...field}
+                  id="signup-firstname-input"
+                  placeholder="Enter your first name"
+                  autoFocus
+                  disabled={loading}
+                  status={errors.firstName ? 'error' : undefined}
+                  className={cn('rounded-lg border-gray-12 px-4 py-2.5')}
+                />
+              </Form.Item>
+            )}
+          />
+
+          {/* Last Name Input */}
+          <Controller
+            name="lastName"
+            control={control}
+            render={({ field }) => (
+              <Form.Item
+                label={
+                  <Text className="text-sm leading-5 text-text-dark">
+                    Last Name
+                  </Text>
+                }
+                validateStatus={errors.lastName ? 'error' : ''}
+                help={errors.lastName?.message}
+              >
+                <Input
+                  {...field}
+                  id="signup-lastname-input"
+                  placeholder="Enter your last name"
+                  disabled={loading}
+                  status={errors.lastName ? 'error' : undefined}
+                  className={cn('rounded-lg border-gray-12 px-4 py-2.5')}
+                />
+              </Form.Item>
+            )}
+          />
+
           {/* Email Input */}
           <Controller
             name="email"
@@ -119,7 +199,6 @@ export function SignUpModal({
                   id="signup-email-input"
                   type="email"
                   placeholder={t('auth.enterYourEmailAddress')}
-                  autoFocus
                   disabled={loading}
                   status={errors.email ? 'error' : undefined}
                   className={cn('rounded-lg border-gray-12 px-4 py-2.5')}
