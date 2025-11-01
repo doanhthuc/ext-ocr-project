@@ -25,7 +25,7 @@ export const auth = {
   'auth.otpVerification': 'Xác thực OTP',
   'auth.otpVerificationDescription':
     'Chúng tôi vừa gửi cho bạn mã 4 chữ số qua email',
-  'auth.resend': 'Gửi lại (12s)',
+  'auth.resend': 'Gửi lại',
   'auth.validation.hasUppercase': 'Chứa chữ in hoa',
   'auth.validation.hasMinLength': 'Nhiều hơn 12 ký tự',
   'auth.validation.hasSpecialChar': 'Chứa ký tự đặc biệt',

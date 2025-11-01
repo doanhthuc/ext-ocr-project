@@ -25,7 +25,7 @@ export const auth = {
   'auth.otpVerification': 'OTP Verification',
   'auth.otpVerificationDescription':
     'We have just sent you 4 digit code via your email',
-  'auth.resend': 'Resend (12s)',
+  'auth.resend': 'Resend',
   'auth.validation.hasUppercase': 'Contains uppercase letters',
   'auth.validation.hasMinLength': 'More than 12 characters',
   'auth.validation.hasSpecialChar': 'Contains special characters',

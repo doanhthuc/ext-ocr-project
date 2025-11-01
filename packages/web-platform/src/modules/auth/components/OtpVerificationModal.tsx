@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input, Modal, Typography } from 'antd';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -16,8 +16,6 @@ const otpSchema = z.object({
   digit2: z.string().regex(/^\d$/, 'Must be a single digit'),
   digit3: z.string().regex(/^\d$/, 'Must be a single digit'),
   digit4: z.string().regex(/^\d$/, 'Must be a single digit'),
-  digit5: z.string().regex(/^\d$/, 'Must be a single digit'),
-  digit6: z.string().regex(/^\d$/, 'Must be a single digit'),
 });
 
 type OtpFormData = z.infer<typeof otpSchema>;
@@ -53,6 +51,8 @@ export function OtpVerificationModal({
 }: OtpVerificationModalProps) {
   const { t } = useTranslation();
   const inputRefs = useRef<Array<HTMLInputElement>>([]);
+  const [resendCountdown, setResendCountdown] = useState(0);
+  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const {
     control,
@@ -69,8 +69,6 @@ export function OtpVerificationModal({
       digit2: '',
       digit3: '',
       digit4: '',
-      digit5: '',
-      digit6: '',
     },
   });
 
@@ -79,6 +77,10 @@ export function OtpVerificationModal({
   useEffect(() => {
     if (!isOpen) {
       reset();
+      // Clean up countdown on close
+      if (countdownIntervalRef.current) {
+        clearInterval(countdownIntervalRef.current);
+      }
     } else {
       // Focus first input when modal opens
       setTimeout(() => {
@@ -86,6 +88,29 @@ export function OtpVerificationModal({
       }, 100);
     }
   }, [isOpen, reset]);
+
+  // Handle countdown timer for resend button
+  useEffect(() => {
+    if (resendCountdown > 0) {
+      countdownIntervalRef.current = setInterval(() => {
+        setResendCountdown(prev => {
+          if (prev <= 1) {
+            if (countdownIntervalRef.current) {
+              clearInterval(countdownIntervalRef.current);
+            }
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (countdownIntervalRef.current) {
+        clearInterval(countdownIntervalRef.current);
+      }
+    };
+  }, [resendCountdown]);
 
   const handleChange = (
     index: number,
@@ -122,25 +147,29 @@ export function OtpVerificationModal({
     const pastedData = e.clipboardData
       .getData('text')
       .replace(/\D/g, '')
-      .slice(0, 6);
+      .slice(0, 4);
 
     if (pastedData.length > 0) {
       setValue('digit1', pastedData[0] || '');
       setValue('digit2', pastedData[1] || '');
       setValue('digit3', pastedData[2] || '');
       setValue('digit4', pastedData[3] || '');
-      setValue('digit5', pastedData[4] || '');
-      setValue('digit6', pastedData[5] || '');
 
       // Focus the next empty input or the last one
-      const focusIndex = Math.min(pastedData.length, 5);
+      const focusIndex = Math.min(pastedData.length, 3);
       inputRefs.current[focusIndex]?.focus();
     }
   };
 
+  const handleResendClick = () => {
+    onResend?.();
+    // Start 60-second countdown
+    setResendCountdown(60);
+  };
+
   const onSubmit = (data: OtpFormData) => {
     if (!loading) {
-      const otpValue = `${data.digit1}${data.digit2}${data.digit3}${data.digit4}${data.digit5}${data.digit6}`;
+      const otpValue = `${data.digit1}${data.digit2}${data.digit3}${data.digit4}`;
       onConfirm(otpValue);
     }
   };
@@ -189,11 +218,13 @@ export function OtpVerificationModal({
               {onResend && (
                 <Button
                   type="link"
-                  onClick={onResend}
-                  disabled={loading}
+                  onClick={handleResendClick}
+                  disabled={loading || resendCountdown > 0}
                   className="h-auto p-0 text-sm leading-5 text-blue-4"
                 >
-                  {t('auth.resend')}
+                  {resendCountdown > 0
+                    ? `${t('auth.resend')} (${resendCountdown}s)`
+                    : t('auth.resend')}
                 </Button>
               )}
             </Text>
@@ -204,44 +235,37 @@ export function OtpVerificationModal({
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="flex w-full flex-col gap-2">
             <div className="flex gap-3 justify-center">
-              {(
-                [
-                  'digit1',
-                  'digit2',
-                  'digit3',
-                  'digit4',
-                  'digit5',
-                  'digit6',
-                ] as const
-              ).map((fieldName, index) => (
-                <Controller
-                  key={fieldName}
-                  name={fieldName}
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      {...field}
-                      ref={el => {
-                        if (el?.input) {
-                          inputRefs.current[index] = el.input;
+              {(['digit1', 'digit2', 'digit3', 'digit4'] as const).map(
+                (fieldName, index) => (
+                  <Controller
+                    key={fieldName}
+                    name={fieldName}
+                    control={control}
+                    render={({ field }) => (
+                      <Input
+                        {...field}
+                        ref={el => {
+                          if (el?.input) {
+                            inputRefs.current[index] = el.input;
+                          }
+                        }}
+                        onChange={e =>
+                          handleChange(index, e.target.value, field.onChange)
                         }
-                      }}
-                      onChange={e =>
-                        handleChange(index, e.target.value, field.onChange)
-                      }
-                      onKeyDown={e => handleKeyDown(index, e)}
-                      onPaste={handlePaste}
-                      maxLength={1}
-                      disabled={loading}
-                      status={error ? 'error' : undefined}
-                      className={cn(
-                        'size-14 rounded-xl border-gray-12 text-center text-2xl font-semibold',
-                        field.value && !error && 'border-blue-4'
-                      )}
-                    />
-                  )}
-                />
-              ))}
+                        onKeyDown={e => handleKeyDown(index, e)}
+                        onPaste={handlePaste}
+                        maxLength={1}
+                        disabled={loading}
+                        status={error ? 'error' : undefined}
+                        className={cn(
+                          'size-14 rounded-xl border-gray-12 text-center text-2xl font-semibold',
+                          field.value && !error && 'border-blue-4'
+                        )}
+                      />
+                    )}
+                  />
+                )
+              )}
             </div>
             {error && (
               <Text className="text-center text-sm leading-5 text-error">
